@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyl2x58uhkund"]
+
+[ext_resource type="Script" uid="uid://btgtso5fm0obo" path="res://result_signal.gd" id="1_gjgu6"]
+[ext_resource type="PackedScene" uid="uid://cn6r3p51pbj3i" path="res://signal_graph.tscn" id="1_iqxn3"]
+
+[node name="ResultSignal" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_gjgu6")
+
+[node name="Graph" parent="." instance=ExtResource("1_iqxn3")]
+layout_mode = 0
+offset_right = 574.2529
+offset_bottom = 576.0
