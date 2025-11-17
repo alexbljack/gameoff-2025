@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://cry4dg0ccj8om"]
+
+[ext_resource type="PackedScene" uid="uid://cn6r3p51pbj3i" path="res://signal_graph.tscn" id="1_4d0o8"]
+[ext_resource type="Script" uid="uid://js8pkqdeacb4" path="res://source_signal.gd" id="1_ndcdy"]
+[ext_resource type="Script" uid="uid://1agcxa80uqew" path="res://shaker.gd" id="3_a45ep"]
+
+[node name="SourceSignal" type="Control"]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 192.0
+offset_bottom = 192.0
+pivot_offset = Vector2(96, 96)
+script = ExtResource("1_ndcdy")
+
+[node name="Graph" parent="." instance=ExtResource("1_4d0o8")]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 192.0
+mouse_filter = 1
+color = Color(0, 0.08235294, 0.09019608, 1)
+points_number = 500
+line_color = Color(0.14509805, 0.972549, 0.20784314, 1)
+glow_color = Color(0.09019608, 0.5529412, 0.11764706, 0.68235296)
+line_width = 1.0
+border_color = Color(0.11372549, 0.6862745, 0.14901961, 0.43137255)
+
+[node name="Shaker" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_a45ep")
+target = NodePath("../Graph")
+amount = 6.0
+duration = 0.3
+metadata/_custom_type_script = "uid://1agcxa80uqew"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

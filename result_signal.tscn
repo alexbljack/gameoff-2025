@@ -10,5 +10,12 @@ script = ExtResource("1_gjgu6")
 
 [node name="Graph" parent="." instance=ExtResource("1_iqxn3")]
 layout_mode = 0
-offset_right = 574.2529
-offset_bottom = 576.0
+offset_right = 640.0
+offset_bottom = 640.0
+color = Color(0, 0.08235294, 0.09019608, 1)
+points_number = 1000
+line_color = Color(0.14117648, 0.9411765, 1, 1)
+glow_color = Color(0, 0.63529414, 0.92156863, 0.6745098)
+line_width = 2.0
+border_width = 4.0
+border_color = Color(0, 0.68235296, 0.9882353, 0.54901963)

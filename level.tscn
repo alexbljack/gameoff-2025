@@ -1,8 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://ce4f4u57jqa5y"]
+[gd_scene load_steps=16 format=3 uid="uid://ce4f4u57jqa5y"]
 
 [ext_resource type="Script" uid="uid://dg2x286sjjtgg" path="res://level.gd" id="1_oi3di"]
+[ext_resource type="Texture2D" uid="uid://4cr4m0os7enb" path="res://gridf.png" id="2_f2txt"]
 [ext_resource type="PackedScene" uid="uid://dyl2x58uhkund" path="res://result_signal.tscn" id="3_0b4ue"]
-[ext_resource type="PackedScene" uid="uid://cry4dg0ccj8om" path="res://guess_signal.tscn" id="3_oi3di"]
+[ext_resource type="Script" uid="uid://dmnn1lsg84wbq" path="res://bg_grid.gd" id="3_1ainy"]
+[ext_resource type="PackedScene" uid="uid://cry4dg0ccj8om" path="res://source_signal.tscn" id="3_oi3di"]
+[ext_resource type="Shader" uid="uid://cfqrs2kqj2w0l" path="res://pulse_color.gdshader" id="5_km5ld"]
+[ext_resource type="PackedScene" uid="uid://h7emc2k5ok36" path="res://slot.tscn" id="6_n6hdu"]
+[ext_resource type="Shader" uid="uid://joo5b1a1u8g1" path="res://crt.gdshader" id="7_n6hdu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2t4f"]
+shader = ExtResource("5_km5ld")
+shader_parameter/pulse_color = Color(0.9987008, 0.9999998, 0.84790206, 1)
+shader_parameter/pulse_strength = 0.5170000245575
+shader_parameter/speed = 0.50000002375
+shader_parameter/sharpness = 0.0
+shader_parameter/use_keymask = false
+shader_parameter/key_color = Vector3(1, 1, 1)
+shader_parameter/mask_tolerance = 0.2
+
+[sub_resource type="Gradient" id="Gradient_km5ld"]
+colors = PackedColorArray(0.85882354, 0, 0.8627451, 0.8666667, 0.85882354, 0, 0.8627451, 0.85490197)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_i2t4f"]
+gradient = SubResource("Gradient_km5ld")
+
+[sub_resource type="Gradient" id="Gradient_i2t4f"]
+colors = PackedColorArray(0.09019608, 0.5529412, 0.11764706, 0.68235296, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8cye3"]
+gradient = SubResource("Gradient_i2t4f")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_km5ld"]
+shader = ExtResource("7_n6hdu")
+shader_parameter/curvature = 6.0
+shader_parameter/vignette_multiplier = 0.05
+
+[sub_resource type="QuadMesh" id="QuadMesh_i2t4f"]
+size = Vector2(1920, 1080)
+center_offset = Vector3(960, 540, 0)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_oi3di")
@@ -16,65 +52,159 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.116737925, 0.22193485, 0.28974855, 1)
+color = Color(9.024516e-08, 0.051215276, 0.08368423, 1)
 metadata/_edit_lock_ = true
 
-[node name="GuessSignals" type="GridContainer" parent="CanvasLayer"]
-anchors_preset = -1
+[node name="Grid" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.13333334)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_f2txt")
+stretch_mode = 1
+script = ExtResource("3_1ainy")
+
+[node name="Convertor" type="ColorRect" parent="CanvasLayer"]
+offset_left = 832.0
+offset_top = 224.0
+offset_right = 1088.0
+offset_bottom = 864.0
+color = Color(1, 1, 1, 0)
+
+[node name="Slots" type="VBoxContainer" parent="CanvasLayer/Convertor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Slot_1" parent="CanvasLayer/Convertor/Slots" instance=ExtResource("6_n6hdu")]
+layout_mode = 2
+
+[node name="Slot_2" parent="CanvasLayer/Convertor/Slots" instance=ExtResource("6_n6hdu")]
+layout_mode = 2
+
+[node name="Line2D" type="Line2D" parent="CanvasLayer/Convertor"]
+material = SubResource("ShaderMaterial_i2t4f")
+points = PackedVector2Array(0, 0, 0, 640, 256, 640, 256, 0)
+closed = true
+width = 5.0
+texture = SubResource("GradientTexture1D_i2t4f")
+antialiased = true
+
+[node name="Line2D2" type="Line2D" parent="CanvasLayer/Convertor"]
+material = SubResource("ShaderMaterial_i2t4f")
+position = Vector2(48, -8)
+points = PackedVector2Array(240, 328, 308, 328, 296, 316, 308, 328, 296, 340)
+width = 6.0
+texture = SubResource("GradientTexture1D_i2t4f")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+
+[node name="Line2D3" type="Line2D" parent="CanvasLayer/Convertor"]
+material = SubResource("ShaderMaterial_i2t4f")
+position = Vector2(-336, -8)
+points = PackedVector2Array(240, 328, 308, 328, 296, 316, 308, 328, 296, 340)
+width = 6.0
+texture = SubResource("GradientTexture1D_8cye3")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+
+[node name="SourceSignals" type="Control" parent="CanvasLayer"]
+layout_mode = 3
 anchor_right = 0.558
 anchor_bottom = 0.86700004
-offset_left = 256.0
+offset_left = 64.0
 offset_top = 224.0
-offset_right = -175.3601
+offset_right = -367.3601
 offset_bottom = -72.36005
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/h_separation = 32
-theme_override_constants/v_separation = 32
-columns = 3
 
-[node name="GuessSignal" parent="CanvasLayer/GuessSignals" instance=ExtResource("3_oi3di")]
-layout_mode = 2
+[node name="Source_1" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+layout_mode = 0
 
-[node name="GuessSignal2" parent="CanvasLayer/GuessSignals" instance=ExtResource("3_oi3di")]
-layout_mode = 2
+[node name="Source_2" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+layout_mode = 0
+offset_left = 224.0
+offset_right = 416.0
 
-[node name="GuessSignal3" parent="CanvasLayer/GuessSignals" instance=ExtResource("3_oi3di")]
-layout_mode = 2
+[node name="Source_3" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+layout_mode = 0
+offset_left = 448.0
+offset_right = 640.0
 
-[node name="GuessSignal4" parent="CanvasLayer/GuessSignals" instance=ExtResource("3_oi3di")]
-layout_mode = 2
+[node name="Source_4" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+layout_mode = 0
+offset_top = 224.0
+offset_bottom = 416.0
 
-[node name="GuessSignal5" parent="CanvasLayer/GuessSignals" instance=ExtResource("3_oi3di")]
-layout_mode = 2
+[node name="Source_5" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 224.0
+offset_right = 416.0
+offset_bottom = 416.0
 
-[node name="GuessSignal6" parent="CanvasLayer/GuessSignals" instance=ExtResource("3_oi3di")]
-layout_mode = 2
+[node name="Source_6" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 224.0
+offset_right = 640.0
+offset_bottom = 416.0
 
-[node name="GuessSignal7" parent="CanvasLayer/GuessSignals" instance=ExtResource("3_oi3di")]
-layout_mode = 2
+[node name="Source_7" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+layout_mode = 0
+offset_top = 448.0
+offset_bottom = 640.0
 
-[node name="GuessSignal8" parent="CanvasLayer/GuessSignals" instance=ExtResource("3_oi3di")]
-layout_mode = 2
+[node name="Source_8" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 448.0
+offset_right = 416.0
+offset_bottom = 640.0
 
-[node name="GuessSignal9" parent="CanvasLayer/GuessSignals" instance=ExtResource("3_oi3di")]
-layout_mode = 2
+[node name="Source_9" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 448.0
+offset_right = 640.0
+offset_bottom = 640.0
 
 [node name="ConfirmButton" type="Button" parent="CanvasLayer"]
-offset_left = 448.0
-offset_top = 936.0
-offset_right = 704.0
-offset_bottom = 1024.0
+offset_left = 832.0
+offset_top = 920.0
+offset_right = 1088.0
+offset_bottom = 1008.0
 theme_override_font_sizes/font_size = 32
 disabled = true
-text = "Confirm"
+text = "Match!"
 
 [node name="ResultSignal" parent="CanvasLayer" instance=ExtResource("3_0b4ue")]
-offset_left = 1160.0
-offset_top = 248.0
-offset_right = 1160.0
-offset_bottom = 248.0
+offset_left = 1216.0
+offset_top = 224.0
+offset_right = 1216.0
+offset_bottom = 224.0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer2"]
+material = SubResource("ShaderMaterial_km5ld")
+position = Vector2(959.75, 539.75)
+scale = Vector2(1920.5, 1080.5)
+mesh = SubResource("QuadMesh_i2t4f")
 
 [connection signal="pressed" from="CanvasLayer/ConfirmButton" to="." method="_on_confirm_button_pressed"]

@@ -1,15 +1,27 @@
 extends Node2D
 
 const max_signals = 9
-const GUESS_SIGNAL = preload("uid://cry4dg0ccj8om")
 
 @export var max_oscillators: int = 2
+
+var free_slot: SignalSlot:
+	get:
+		for child: SignalSlot in slots.get_children():
+			if not child.source_signal:
+				return child
+		return null
+
+
+var signals_in_slots: Array:
+	get:
+		return slots.get_children().map(func(s): return s.source_signal)
 
 var result_osc: Array[Oscillator]
 
 @onready var result_signal: Control = $CanvasLayer/ResultSignal
-@onready var guess_signals: GridContainer = $CanvasLayer/GuessSignals
+@onready var source_signals: Control = $CanvasLayer/SourceSignals
 @onready var confirm_button: Button = $CanvasLayer/ConfirmButton
+@onready var slots: VBoxContainer = $CanvasLayer/Convertor/Slots
 
 
 func _ready() -> void:
@@ -27,14 +39,11 @@ func _ready() -> void:
 			else:
 				osc_positions[pos] = osc
 				break
+
 	
-	for child in guess_signals.get_children():
-		guess_signals.remove_child(child)
-	
-	for j in range(max_signals):
+	for j in range(9):
 		# ensure all random graphs
-		var plot = GUESS_SIGNAL.instantiate()
-		guess_signals.add_child(plot)
+		var plot = source_signals.get_child(j)
 		if j in osc_positions.keys():
 			plot.graph.oscillators.append(osc_positions[j])
 		else:
@@ -51,17 +60,36 @@ func _create_random_osc() -> Oscillator:
 	return osc
 
 
-func _on_plot_clicked():
-	var selected = 0
-	for plot in guess_signals.get_children():
-		if plot.selected:
-			selected += 1
-	confirm_button.disabled = selected < max_oscillators
+func _on_plot_clicked(source: SourceSignal):
+	if source.assigned_to:
+		source.assigned_to.source_signal = null
+		source.assigned_to = null
+		var tween = create_tween()
+		tween.tween_property(source, "global_position", source.initial_position, 0.3)
+		await tween.finished
+		source.reparent(source_signals)
+		_update_match_button()
+		return
+
+	if free_slot:
+		var tween = create_tween()
+		tween.tween_property(source, "global_position", free_slot.global_position, 0.3)
+		source.reparent(free_slot)
+		source.assigned_to = free_slot
+		free_slot.source_signal = source
+		await tween.finished
+		_update_match_button()
+	else:
+		source.shaker.shake()
+		return
 
 
 func _on_confirm_button_pressed() -> void:
-	for plot in guess_signals.get_children():
-		if plot.selected:
-			result_signal.graph.second_plot.append(plot.graph.oscillators[0])
+	for sig in signals_in_slots:
+		result_signal.graph.second_plot.append(sig.graph.oscillators[0])
 	await get_tree().create_timer(1).timeout
 	result_signal.graph.second_plot.clear()
+
+
+func _update_match_button():
+	confirm_button.disabled = free_slot != null
