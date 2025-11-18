@@ -1,7 +1,5 @@
 class_name SignalGraph extends ColorRect
 
-enum WaveType { SINE, SAW, SQUARE, TRIANGLE }
-
 @export var oscillators: Array[Oscillator]
 @export var second_plot: Array[Oscillator]
 @export var max_amplitude: float = 3
@@ -46,7 +44,7 @@ func _draw() -> void:
 	_draw_wave(oscillators, glow_color, line_width * 4)
 	_draw_wave(oscillators, line_color, line_width)
 	if second_plot:
-		_draw_wave(second_plot, secondary_color, line_width)
+		_draw_wave(second_plot, secondary_color, 6)
 
 
 func _draw_wave(_oscillators: Array, _color: Color, _width: float) -> void:

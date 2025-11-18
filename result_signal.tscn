@@ -16,6 +16,7 @@ color = Color(0, 0.08235294, 0.09019608, 1)
 points_number = 1000
 line_color = Color(0.14117648, 0.9411765, 1, 1)
 glow_color = Color(0, 0.63529414, 0.92156863, 0.6745098)
+secondary_color = Color(0.14509805, 0.972549, 0.20784314, 1)
 line_width = 2.0
 border_width = 4.0
 border_color = Color(0, 0.68235296, 0.9882353, 0.54901963)

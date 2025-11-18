@@ -3,6 +3,10 @@ extends Node2D
 const max_signals = 9
 
 @export var max_oscillators: int = 2
+@export var on_hint_removed: int = 3
+@export var starting_attempts := 4
+
+var attempts: int
 
 var free_slot: SignalSlot:
 	get:
@@ -17,16 +21,17 @@ var signals_in_slots: Array:
 		return slots.get_children().map(func(s): return s.source_signal)
 
 var result_osc: Array[Oscillator]
+var osc_positions: Dictionary
 
 @onready var result_signal: Control = $CanvasLayer/ResultSignal
 @onready var source_signals: Control = $CanvasLayer/SourceSignals
 @onready var confirm_button: Button = $CanvasLayer/ConfirmButton
 @onready var slots: VBoxContainer = $CanvasLayer/Convertor/Slots
-
+@onready var confirm_hint_dialog: ConfirmationDialog = $CanvasLayer/ConfirmHintDialog
 
 func _ready() -> void:
-	var osc_positions := {} 
-	
+	attempts = starting_attempts
+
 	for i in range(max_oscillators):
 		var osc = _create_random_osc()
 		add_child(osc)
@@ -43,12 +48,14 @@ func _ready() -> void:
 	
 	for j in range(9):
 		# ensure all random graphs
-		var plot = source_signals.get_child(j)
+		var plot: SourceSignal = source_signals.get_child(j)
 		if j in osc_positions.keys():
 			plot.graph.oscillators.append(osc_positions[j])
 		else:
 			plot.graph.oscillators.append(_create_random_osc())
 		plot.clicked.connect(_on_plot_clicked)
+		plot.hovered.connect(_on_source_hovered)
+		plot.left.connect(_on_source_left)
 
 
 
@@ -93,3 +100,28 @@ func _on_confirm_button_pressed() -> void:
 
 func _update_match_button():
 	confirm_button.disabled = free_slot != null
+
+
+func _on_source_hovered(source: SourceSignal):
+	result_signal.graph.second_plot.append(source.graph.oscillators[0])
+
+
+func _on_source_left(_source: SourceSignal):
+	result_signal.graph.second_plot.clear()
+
+
+func _on_hint_button_button_down() -> void:
+	confirm_hint_dialog.popup_centered()
+
+
+func _on_confirm_hint_dialog_confirmed() -> void:
+	var ids = []
+	for i in range(9):
+		if i in osc_positions.keys():
+			continue
+		ids.append(i)
+	print(osc_positions)
+	print(ids)
+	ids.shuffle()
+	for to_remove_id in ids.slice(0, on_hint_removed):
+		source_signals.get_child(to_remove_id).queue_free()

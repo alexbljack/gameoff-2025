@@ -1,6 +1,8 @@
 class_name SourceSignal extends Control
 
 signal clicked(source)
+signal hovered(source)
+signal left(source)
 
 @onready var graph: SignalGraph = $Graph
 @onready var shaker: Shaker = $Shaker
@@ -24,6 +26,7 @@ func _on_gui_input(event: InputEvent) -> void:
 
 
 func _on_mouse_entered() -> void:
+	hovered.emit(self)
 	alpha = graph.border_color.a
 	graph.border_color.a = 1
 	var tween = create_tween()
@@ -32,6 +35,7 @@ func _on_mouse_entered() -> void:
 
 
 func _on_mouse_exited() -> void:
+	left.emit(self)
 	graph.border_color.a = alpha
 	var tween = create_tween()
 	tween.tween_property(self, "scale", Vector2(1, 1), 0.2)
