@@ -6,8 +6,13 @@ signal finished
 @export var amount := 5.0
 @export var duration := 1.0
 
+var shaking := false
+
 
 func shake() -> void:
+	if shaking:
+		return
+	shaking = true
 	var shake = amount
 	var start_position = target.global_position
 	while shake > 0:
@@ -20,3 +25,4 @@ func shake() -> void:
 		await get_tree().process_frame
 	target.global_position = start_position
 	finished.emit()
+	shaking = false

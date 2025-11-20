@@ -15,7 +15,6 @@ var free_slot: SignalSlot:
 				return child
 		return null
 
-
 var signals_in_slots: Array:
 	get:
 		return slots.get_children().map(func(s): return s.source_signal)
@@ -26,11 +25,18 @@ var osc_positions: Dictionary
 @onready var result_signal: Control = $CanvasLayer/ResultSignal
 @onready var source_signals: Control = $CanvasLayer/SourceSignals
 @onready var confirm_button: Button = $CanvasLayer/ConfirmButton
+@onready var hint_button: Button = $CanvasLayer/HintButton
 @onready var slots: VBoxContainer = $CanvasLayer/Convertor/Slots
-@onready var confirm_hint_dialog: ConfirmationDialog = $CanvasLayer/ConfirmHintDialog
+@onready var convertor_border: Line2D = $CanvasLayer/Convertor/Border
+@onready var attempts: HBoxContainer = $CanvasLayer/Attempts
+
 
 func _ready() -> void:
+	confirm_button.pressed.connect(_on_confirm_button_pressed)
+
 	attempts = starting_attempts
+	for attempt in attempts:
+		attempts
 
 	for i in range(max_oscillators):
 		var osc = _create_random_osc()
@@ -92,14 +98,38 @@ func _on_plot_clicked(source: SourceSignal):
 
 
 func _on_confirm_button_pressed() -> void:
+	var result = []
+
+	var tween = create_tween()
 	for sig in signals_in_slots:
+		tween.parallel().tween_property(sig, 'scale', Vector2(1.1, 1.1), 0.5)
+	await tween.finished
+	
+	tween = create_tween()
+	for sig in signals_in_slots:
+		tween.parallel().tween_property(sig, 'scale', Vector2(1.0, 1.0), 0.1)
+	await tween.finished
+	
+	for sig in signals_in_slots:
+		var osc = sig.graph.oscillators[0]
 		result_signal.graph.second_plot.append(sig.graph.oscillators[0])
+		result.append(osc in result_osc)
+	
+	if result.all(func (r): return r):
+		print("WIN")
+	else:
+		attempts -= 1
+
+
 	await get_tree().create_timer(1).timeout
 	result_signal.graph.second_plot.clear()
 
 
 func _update_match_button():
-	confirm_button.disabled = free_slot != null
+	if free_slot != null:
+		confirm_button.deactivate()
+	else:
+		confirm_button.activate()
 
 
 func _on_source_hovered(source: SourceSignal):
@@ -111,17 +141,28 @@ func _on_source_left(_source: SourceSignal):
 
 
 func _on_hint_button_button_down() -> void:
-	confirm_hint_dialog.popup_centered()
-
-
-func _on_confirm_hint_dialog_confirmed() -> void:
+	hint_button.disabled = true
 	var ids = []
 	for i in range(9):
 		if i in osc_positions.keys():
 			continue
 		ids.append(i)
-	print(osc_positions)
-	print(ids)
 	ids.shuffle()
+	
+	var tween = create_tween()
+	var to_delete = []
 	for to_remove_id in ids.slice(0, on_hint_removed):
-		source_signals.get_child(to_remove_id).queue_free()
+		var source = source_signals.get_child(to_remove_id)
+		tween.tween_property(source, 'scale', Vector2(1.1, 1.1), 0.2)
+		tween.tween_property(source, 'scale', Vector2.ZERO, 0.2)
+		to_delete.append(source)	
+	await tween.finished
+	
+	for s in to_delete:
+		s.queue_free()
+	
+	tween = create_tween()
+	tween.tween_property(hint_button, 'scale', Vector2.ZERO, 0.2)
+	await tween.finished
+	hint_button.queue_free()
+	

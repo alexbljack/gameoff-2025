@@ -40,7 +40,6 @@ func _draw() -> void:
 	_draw_border()
 
 	draw_line(Vector2(0, cy), Vector2(w, cy), col_major, 2.0, true)
-	# draw_line(Vector2(cx, 0), Vector2(cx, h), col_major, c:\Users\alexb\Downloads\gridf.png2.0)
 	_draw_wave(oscillators, glow_color, line_width * 4)
 	_draw_wave(oscillators, line_color, line_width)
 	if second_plot:
@@ -65,12 +64,9 @@ func _draw_grid() -> void:
 	var col_minor := Color(0.35, 0.35, 0.38, 0.35)
 
 	for x in range(0, int(w) + 1, period_px):
-		# var c := col_major if (x % (step * 2) == 0) else col_minor
 		draw_line(Vector2(x, 0), Vector2(x, h), col_minor, 1.0, true)
 
-
 	for y in range(0, int(h) + 1, amp_px):
-		# var c := col_major if (y % (step * 2) == 0) else col_minor
 		draw_line(Vector2(0, y), Vector2(w, y), col_major, 1.0, true)
 
 

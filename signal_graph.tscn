@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dkcx4l2q6ap8m" path="res://signal_graph.gd" id="1_t65p8"]
 
-[node name="PuzzleGraph" type="ColorRect" node_paths=PackedStringArray("oscillator")]
+[node name="PuzzleGraph" type="ColorRect"]
 offset_right = 672.0
 offset_bottom = 416.0
 color = Color(0.16924527, 0.1692453, 0.16924527, 1)
 script = ExtResource("1_t65p8")
-oscillator = NodePath("")
-draw_grid = false
