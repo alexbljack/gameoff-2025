@@ -1,14 +1,19 @@
 extends Node2D
 
-const MAX_SIGNALS = 9
-
 @export var max_oscillators: int = 2
 @export var on_hint_removed: int = 3
-@export var starting_attempts := 4
+
+var attempts: int:
+	set(new_value):
+		attempts = new_value
+		Game.player_data.attempts_left = attempts
+
+var hint_used: bool = false:
+	set(new_value):
+		hint_used = new_value
+		Game.player_data.hint_used = hint_used
 
 var sources: Array = []
-var attempts: int
-var hint_used: bool = false
 var result_signals: Array
 
 @onready var result_graph: ResultSignal = $CanvasLayer/ResultSignal
@@ -26,33 +31,60 @@ var result_signals: Array
 
 func _ready() -> void:
 	confirm_button.pressed.connect(_on_confirm_button_pressed)
+	
+	hint_used = Game.player_data.hint_used
+	hint_button.set_state(hint_used) 
 
-	attempts = starting_attempts
-	attempts_container.init(attempts)
-	convertor.init(max_oscillators)
+	attempts = Game.player_data.attempts_left
+	attempts_container.init(attempts, Const.MAX_ATTEMPTS)
 
 	_load_data()
-	_generate_signals()
+
+	if not Game.player_data.current_sources:
+		convertor.init(max_oscillators)
+		_generate_signals()
+	else:
+		for i in range(Const.MAX_SOURCES):
+			var graph: SourceSignal = source_signals.get_child(i)
+			if i < Game.player_data.current_sources.size():
+				var osc = Game.player_data.current_sources[i]
+				
+				_init_source_graph(graph, osc)
+			else:
+				graph.queue_free()
+		result_signals = Game.player_data.current_result_signals
+		result_graph.init(result_signals)
+		convertor.init(result_signals.size())
+		convertor.unmatched_combos = Game.player_data.unmatched_signals
+	_dump_signals()
 
 
 func _generate_signals():
-	# ensure all random graphs
-	for j in range(MAX_SIGNALS):
-		var graph: SourceSignal = source_signals.get_child(j)
+	for j in range(Const.MAX_SOURCES):
 		var osc = Oscillator.rand_osc()
-		graph.init(osc)
-		graph.clicked.connect(_on_source_clicked)
-		graph.hovered.connect(_on_source_hovered)
-		graph.left.connect(_on_source_left)
-		sources.append(graph)
+		var graph: SourceSignal = source_signals.get_child(j)  # ensure all random graphs
+		_init_source_graph(graph, osc)
 
-	result_signals = Utils.get_random_items(source_signals.get_children().map(func (s): return s.oscillator), max_oscillators)
+	result_signals = Utils.get_random_items(sources.map(func (s): return s.oscillator), max_oscillators)
 	result_graph.init(result_signals)
 
 
 func _load_data():
 	level_label.text = "Level %s" % Game.player_data.current_level
 	score_label.text = "Score %s" % Game.player_data.current_score
+
+
+func _init_source_graph(graph: SourceSignal, osc: Oscillator):
+	graph.init(osc)
+	graph.clicked.connect(_on_source_clicked)
+	graph.hovered.connect(_on_source_hovered)
+	graph.left.connect(_on_source_left)
+	sources.append(graph)
+
+
+func _dump_signals():
+	Game.player_data.current_sources = sources.map(func (s): return s.oscillator)
+	Game.player_data.current_result_signals = result_signals
 
 
 func _on_source_clicked(source: SourceSignal):
@@ -98,6 +130,7 @@ func _on_confirm_button_pressed() -> void:
 		var earned = win_panel.calculate(attempts, hint_used, Game.player_data.current_mult)
 		Game.player_data.current_score += earned
 		Game.player_data.current_level += 1
+		Game.player_data.start_new_level()
 		await win_panel.show_stats()
 	else:
 		_show_error_graph()
@@ -105,6 +138,7 @@ func _on_confirm_button_pressed() -> void:
 		attempts_container.spend_attempt()
 		result_graph.shaker.shake()
 		convertor.save_unmatched()
+		Game.player_data.unmatched_signals = convertor.unmatched_combos
 		_update_match_button()
 		if attempts == 0:
 			var is_best_result = Game.player_data.update_best_score()
@@ -159,7 +193,7 @@ func _on_source_left(_source: SourceSignal):
 
 
 func _on_hint_button_button_down() -> void:
-	hint_button.disabled = true
+	hint_button.set_state(true)
 	hint_used = true
 	var candidates = []
 	for source in sources:
@@ -168,18 +202,14 @@ func _on_hint_button_button_down() -> void:
 		candidates.append(source)
 
 	candidates.shuffle()
-	
-	var tween = create_tween()
-	var to_delete = []
+
 	for source in candidates.slice(0, on_hint_removed):
+		var tween = create_tween()
 		source.input_enabled = false
 		sources.erase(source)
 		tween.tween_property(source, 'scale', Vector2(1.1, 1.1), 0.2)
 		tween.tween_property(source, 'scale', Vector2.ZERO, 0.1)
-		to_delete.append(source)	
-	await tween.finished
+		await tween.finished
+		source.queue_free()
 	
-	for s in to_delete:
-		s.queue_free()
-
-	hint_button.text = "Hint used"
+	_dump_signals()

@@ -29,6 +29,31 @@ const SAVE_FILE_PATH = SAVES_DIR + SAVE_FILE
 		current_mult = new_value
 		try_save()
 
+@export var current_sources: Array = []:
+	set(new_value):
+		current_sources = new_value
+		try_save()
+
+@export var current_result_signals: Array = []:
+	set(new_value):
+		current_result_signals = new_value
+		try_save()
+
+@export var unmatched_signals: Array = []:
+	set(new_value):
+		unmatched_signals = new_value
+		try_save()
+
+
+@export var hint_used: bool = false:
+	set(new_value):
+		hint_used = new_value
+		try_save()
+
+@export var attempts_left: int = Const.MAX_ATTEMPTS:
+	set(new_value):
+		attempts_left = new_value
+		try_save()
 
 var save_file: String = ""
 
@@ -47,3 +72,18 @@ func update_best_score() -> bool:
 		best_score = current_score
 		return true
 	return false
+
+
+func start_new_game() -> void:
+	run_in_progress = true
+	current_level = 1
+	current_score = 0
+	current_mult = 1.0
+
+
+func start_new_level() -> void:
+	current_sources = []
+	current_result_signals = []
+	unmatched_signals = []
+	attempts_left = Const.MAX_ATTEMPTS
+	hint_used = false

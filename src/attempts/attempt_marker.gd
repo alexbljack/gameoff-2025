@@ -12,6 +12,11 @@ func _ready() -> void:
 	texture = active_texture
 
 
+func init(is_spent: bool):
+	spent = is_spent
+	texture = spent_texture if is_spent else active_texture
+
+
 func spend():
 	spent = true
 	shaker.shake()

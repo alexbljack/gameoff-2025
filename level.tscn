@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dg2x286sjjtgg" path="res://level.gd" id="1_oi3di"]
 [ext_resource type="Texture2D" uid="uid://4cr4m0os7enb" path="res://assets/gridf.png" id="2_f2txt"]
 [ext_resource type="PackedScene" uid="uid://dyl2x58uhkund" path="res://result_signal.tscn" id="3_0b4ue"]
-[ext_resource type="Script" uid="uid://dmnn1lsg84wbq" path="res://src/background/bg_grid.gd" id="3_1ainy"]
 [ext_resource type="PackedScene" uid="uid://cry4dg0ccj8om" path="res://source_signal.tscn" id="3_oi3di"]
 [ext_resource type="PackedScene" uid="uid://cdhfqv7vb6awq" path="res://src/convertor/convertor.tscn" id="4_8b0r0"]
 [ext_resource type="PackedScene" uid="uid://dlbl30nxgy6cy" path="res://confirm_button.tscn" id="8_2orkt"]
@@ -11,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://c7tmixruws4h5" path="res://assets/Blazma-Regular.ttf" id="9_8cye3"]
 [ext_resource type="Texture2D" uid="uid://dq2pgwpw1575p" path="res://assets/help_btn_pressed.png" id="10_aicyk"]
 [ext_resource type="Texture2D" uid="uid://b7n7rubydx6s4" path="res://assets/help_btn_hover.png" id="11_8b0r0"]
+[ext_resource type="Script" uid="uid://bastk8hao8k8i" path="res://hint_button.gd" id="12_5pxul"]
 [ext_resource type="PackedScene" uid="uid://dklkx4uxh7nxj" path="res://src/attempts/attempts.tscn" id="12_8b0r0"]
 [ext_resource type="PackedScene" uid="uid://dy8c3o1ybfrwy" path="res://src/crt.tscn" id="13_8b0r0"]
 [ext_resource type="PackedScene" uid="uid://b3dq0c83hkw8j" path="res://win_panel.tscn" id="13_h6smj"]
@@ -76,7 +76,6 @@ shader_parameter/phase = 0.0
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_oi3di")
-starting_attempts = 2
 
 [node name="Background" type="CanvasLayer" parent="."]
 
@@ -100,7 +99,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_f2txt")
 stretch_mode = 1
-script = ExtResource("3_1ainy")
 metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -203,6 +201,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_h6smj")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_h6smj")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_h6smj")
 text = "Get hint"
+script = ExtResource("12_5pxul")
 
 [node name="Attempts" parent="CanvasLayer" instance=ExtResource("12_8b0r0")]
 offset_left = -704.0

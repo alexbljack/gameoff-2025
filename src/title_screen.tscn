@@ -1,9 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://crvwdmp05ujb8"]
+[gd_scene load_steps=31 format=3 uid="uid://crvwdmp05ujb8"]
 
 [ext_resource type="Texture2D" uid="uid://4cr4m0os7enb" path="res://assets/gridf.png" id="1_mx57q"]
 [ext_resource type="Script" uid="uid://d0u8hvnevdeub" path="res://src/title_screen.gd" id="1_u3a1t"]
 [ext_resource type="PackedScene" uid="uid://ce4f4u57jqa5y" path="res://level.tscn" id="2_u3a1t"]
-[ext_resource type="Script" uid="uid://dmnn1lsg84wbq" path="res://src/background/bg_grid.gd" id="2_vayli"]
 [ext_resource type="FontFile" uid="uid://c7tmixruws4h5" path="res://assets/Blazma-Regular.ttf" id="3_vayli"]
 [ext_resource type="Texture2D" uid="uid://ddceljcpm4y81" path="res://assets/active_btn.png" id="4_vedi7"]
 [ext_resource type="Texture2D" uid="uid://bjmy5f4rxl8fv" path="res://assets/Default.png" id="5_odwn3"]
@@ -170,7 +169,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_mx57q")
 stretch_mode = 1
-script = ExtResource("2_vayli")
 metadata/_edit_lock_ = true
 
 [node name="StartButton" type="Button" parent="CanvasLayer"]

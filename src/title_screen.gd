@@ -27,7 +27,7 @@ func _ready() -> void:
 		start_button.pressed.connect(_on_new_game)
 
 
-func _init_save():
+func _init_save() -> void:
 	if not DirAccess.dir_exists_absolute(PlayerData.SAVES_DIR):
 		DirAccess.make_dir_recursive_absolute(PlayerData.SAVES_DIR)
 
@@ -38,9 +38,8 @@ func _init_save():
 
 func _on_new_game() -> void:
 	Game.player_data.save_file = PlayerData.SAVE_FILE_PATH
-	Game.player_data.current_level = 1
-	Game.player_data.current_score = 0
-	Game.player_data.run_in_progress = true
+	Game.player_data.start_new_game()
+	Game.player_data.start_new_level()
 	SceneManager.load_level()
 
 
