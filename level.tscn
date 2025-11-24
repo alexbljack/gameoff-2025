@@ -349,6 +349,7 @@ width = 4.0
 default_color = Color(0.9490196, 0, 0.9490196, 0.77254903)
 
 [node name="ExitButton" type="TextureButton" parent="Main"]
+modulate = Color(0.6241873, 0.8020108, 0.92560536, 1)
 offset_left = 1792.0
 offset_top = 64.0
 offset_right = 1856.0
