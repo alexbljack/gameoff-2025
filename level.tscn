@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ce4f4u57jqa5y"]
+[gd_scene load_steps=35 format=3 uid="uid://ce4f4u57jqa5y"]
 
 [ext_resource type="Script" uid="uid://dg2x286sjjtgg" path="res://level.gd" id="1_oi3di"]
 [ext_resource type="Texture2D" uid="uid://4cr4m0os7enb" path="res://assets/gridf.png" id="2_f2txt"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://dy8c3o1ybfrwy" path="res://src/crt.tscn" id="13_8b0r0"]
 [ext_resource type="PackedScene" uid="uid://b3dq0c83hkw8j" path="res://win_panel.tscn" id="13_h6smj"]
 [ext_resource type="PackedScene" uid="uid://o2rht176mmgv" path="res://lose_panel.tscn" id="14_v5j5c"]
+[ext_resource type="Texture2D" uid="uid://ccs6isdychcn" path="res://assets/Exit.png" id="15_5pxul"]
+[ext_resource type="Script" uid="uid://bwpaxfk8jwdny" path="res://exit_button.gd" id="16_fedht"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aicyk"]
 texture = ExtResource("9_2orkt")
@@ -29,6 +31,44 @@ texture = ExtResource("11_8b0r0")
 bg_color = Color(0.16078432, 0.16078432, 0.16078432, 0.64705884)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h6smj"]
+
+[sub_resource type="Animation" id="Animation_1ri5t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dhlin"]
+resource_name = "pulse"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jap5b"]
+_data = {
+&"RESET": SubResource("Animation_1ri5t"),
+&"pulse": SubResource("Animation_dhlin")
+}
 
 [sub_resource type="Shader" id="Shader_v5j5c"]
 code = "shader_type canvas_item;
@@ -74,6 +114,54 @@ shader_parameter/amplitude = 3.0000001425
 shader_parameter/speed = 2.000000095
 shader_parameter/phase = 0.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5j5c"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+bg_color = Color(0.16272926, 0.16139773, 0.22375724, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 0.19215687, 0.37254903, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pxul"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.16206548, 0.16206563, 0.16206557, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.34901962, 0.7490196, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fedht"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.16206548, 0.16206563, 0.16206557, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.34901962, 0.7490196, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4c15r"]
+
+[sub_resource type="Theme" id="Theme_v5j5c"]
+default_font = ExtResource("9_8cye3")
+default_font_size = 72
+AcceptDialog/constants/buttons_min_height = 0
+AcceptDialog/constants/buttons_min_width = 300
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_v5j5c")
+Button/styles/focus = SubResource("StyleBoxFlat_5pxul")
+Button/styles/hover = SubResource("StyleBoxFlat_fedht")
+Button/styles/normal = SubResource("StyleBoxEmpty_4c15r")
+
 [node name="Level" type="Node2D"]
 script = ExtResource("1_oi3di")
 
@@ -101,15 +189,15 @@ texture = ExtResource("2_f2txt")
 stretch_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Main" type="CanvasLayer" parent="."]
 
-[node name="Convertor" parent="CanvasLayer" instance=ExtResource("4_8b0r0")]
+[node name="Convertor" parent="Main" instance=ExtResource("4_8b0r0")]
 offset_left = 832.0
 offset_top = 248.0
 offset_right = 1088.0
 offset_bottom = 918.0
 
-[node name="SourceSignals" type="Control" parent="CanvasLayer"]
+[node name="SourceSignals" type="Control" parent="Main"]
 layout_mode = 3
 anchor_right = 0.558
 anchor_bottom = 0.86700004
@@ -122,79 +210,80 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Source_1" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+[node name="Source_1" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
 
-[node name="Source_2" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+[node name="Source_2" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
 offset_left = 224.0
 offset_right = 416.0
 
-[node name="Source_3" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+[node name="Source_3" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
 offset_left = 448.0
 offset_right = 640.0
 
-[node name="Source_4" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+[node name="Source_4" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
 offset_top = 224.0
 offset_bottom = 416.0
 
-[node name="Source_5" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+[node name="Source_5" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
 offset_left = 224.0
 offset_top = 224.0
 offset_right = 416.0
 offset_bottom = 416.0
 
-[node name="Source_6" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+[node name="Source_6" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
 offset_left = 448.0
 offset_top = 224.0
 offset_right = 640.0
 offset_bottom = 416.0
 
-[node name="Source_7" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+[node name="Source_7" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
 offset_top = 448.0
 offset_bottom = 640.0
 
-[node name="Source_8" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+[node name="Source_8" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
 offset_left = 224.0
 offset_top = 448.0
 offset_right = 416.0
 offset_bottom = 640.0
 
-[node name="Source_9" parent="CanvasLayer/SourceSignals" instance=ExtResource("3_oi3di")]
+[node name="Source_9" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
 offset_left = 448.0
 offset_top = 448.0
 offset_right = 640.0
 offset_bottom = 640.0
 
-[node name="ResultSignal" parent="CanvasLayer" instance=ExtResource("3_0b4ue")]
+[node name="ResultSignal" parent="Main" instance=ExtResource("3_0b4ue")]
 offset_left = 1216.0
 offset_top = 263.0
 offset_right = 1216.64
 offset_bottom = 262.55994
 
-[node name="ConfirmButton" parent="CanvasLayer" instance=ExtResource("8_2orkt")]
+[node name="ConfirmButton" parent="Main" instance=ExtResource("8_2orkt")]
 z_index = 3
 offset_left = 832.0
 offset_top = 960.0
 offset_right = 1088.0
 offset_bottom = 1048.0
+theme_override_font_sizes/font_size = 60
 
-[node name="HintButton" type="Button" parent="CanvasLayer"]
-offset_left = 288.0
+[node name="HintButton" type="Button" parent="Main"]
+offset_left = 64.0
 offset_top = 976.0
-offset_right = 480.0
+offset_right = 256.0
 offset_bottom = 1040.0
 pivot_offset = Vector2(64, 20)
 focus_mode = 0
 theme_override_fonts/font = ExtResource("9_8cye3")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 38
 theme_override_styles/normal = SubResource("StyleBoxTexture_aicyk")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8b0r0")
 theme_override_styles/hover = SubResource("StyleBoxTexture_h6smj")
@@ -203,16 +292,22 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_h6smj")
 text = "Get hint"
 script = ExtResource("12_5pxul")
 
-[node name="Attempts" parent="CanvasLayer" instance=ExtResource("12_8b0r0")]
-offset_left = -704.0
-offset_top = -476.0
-offset_right = -64.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Main/HintButton"]
+libraries = {
+&"": SubResource("AnimationLibrary_jap5b")
+}
 
-[node name="LevelLabel" type="Label" parent="CanvasLayer"]
+[node name="Attempts" parent="Main" instance=ExtResource("12_8b0r0")]
+offset_left = -704.0
+offset_top = -380.0
+offset_right = -64.0
+offset_bottom = -316.0
+
+[node name="LevelLabel" type="Label" parent="Main"]
 material = SubResource("ShaderMaterial_aicyk")
 offset_left = 64.0
 offset_top = 48.0
-offset_right = 400.0
+offset_right = 704.0
 offset_bottom = 131.0
 theme_override_colors/font_color = Color(0.92182696, 0.99999696, 0.50211465, 1)
 theme_override_colors/font_outline_color = Color(0.7490196, 0.78039217, 0, 1)
@@ -222,12 +317,12 @@ theme_override_font_sizes/font_size = 72
 text = "Level 10"
 vertical_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+[node name="ScoreLabel" type="Label" parent="Main"]
 material = SubResource("ShaderMaterial_8b0r0")
 offset_left = 64.0
-offset_top = 131.0
-offset_right = 461.0
-offset_bottom = 192.0
+offset_top = 160.0
+offset_right = 704.0
+offset_bottom = 221.0
 theme_override_colors/font_color = Color(1, 0.56743807, 0.99001366, 1)
 theme_override_colors/font_outline_color = Color(0.8780115, 0.0006434119, 0.8822325, 1)
 theme_override_constants/outline_size = 6
@@ -236,23 +331,59 @@ theme_override_font_sizes/font_size = 46
 text = "Score 10001"
 vertical_alignment = 1
 
-[node name="WinPanel" parent="CanvasLayer" instance=ExtResource("13_h6smj")]
+[node name="WinPanel" parent="Main" instance=ExtResource("13_h6smj")]
 visible = false
 offset_left = 128.0
 offset_top = 248.0
 offset_right = 710.0
 offset_bottom = 880.0
 
-[node name="LosePanel" parent="CanvasLayer" instance=ExtResource("14_v5j5c")]
+[node name="LosePanel" parent="Main" instance=ExtResource("14_v5j5c")]
 visible = false
 offset_top = 256.0
 offset_bottom = 880.04
 
-[node name="Line2D" type="Line2D" parent="CanvasLayer"]
+[node name="Line2D" type="Line2D" parent="Main"]
 points = PackedVector2Array(1090, 576, 1212, 576)
 width = 4.0
 default_color = Color(0.9490196, 0, 0.9490196, 0.77254903)
 
-[node name="CRT" parent="." instance=ExtResource("13_8b0r0")]
+[node name="ExitButton" type="TextureButton" parent="Main"]
+offset_left = 1792.0
+offset_top = 64.0
+offset_right = 1856.0
+offset_bottom = 128.0
+pivot_offset = Vector2(32, 32)
+texture_normal = ExtResource("15_5pxul")
+stretch_mode = 0
+script = ExtResource("16_fedht")
 
-[connection signal="button_down" from="CanvasLayer/HintButton" to="." method="_on_hint_button_button_down"]
+[node name="Menu" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.07, 0.07, 0.84313726)
+
+[node name="ExitDialog" type="ConfirmationDialog" parent="Menu"]
+oversampling_override = 1.0
+title = ""
+size = Vector2i(850, 250)
+wrap_controls = false
+transient = false
+unresizable = true
+borderless = true
+always_on_top = true
+keep_title_visible = false
+theme = SubResource("Theme_v5j5c")
+ok_button_text = "YES"
+dialog_text = "Abandon current run?"
+
+[node name="CRT" parent="." instance=ExtResource("13_8b0r0")]
+visible = false
+
+[connection signal="button_down" from="Main/HintButton" to="." method="_on_hint_button_button_down"]

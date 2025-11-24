@@ -16,20 +16,27 @@ var hint_used: bool = false:
 var sources: Array = []
 var result_signals: Array
 
-@onready var result_graph: ResultSignal = $CanvasLayer/ResultSignal
-@onready var source_signals: Control = $CanvasLayer/SourceSignals
-@onready var confirm_button: Button = $CanvasLayer/ConfirmButton
-@onready var hint_button: Button = $CanvasLayer/HintButton
+@onready var result_graph: ResultSignal = $Main/ResultSignal
+@onready var source_signals: Control = $Main/SourceSignals
+@onready var confirm_button: Button = $Main/ConfirmButton
+@onready var hint_button: Button = $Main/HintButton
 
-@onready var convertor: Convertor = $CanvasLayer/Convertor
-@onready var attempts_container: Control = $CanvasLayer/Attempts
-@onready var win_panel: WinPanel = $CanvasLayer/WinPanel
-@onready var lose_panel: LosePanel = $CanvasLayer/LosePanel
-@onready var score_label: Label = $CanvasLayer/ScoreLabel
-@onready var level_label: Label = $CanvasLayer/LevelLabel
+@onready var convertor: Convertor = $Main/Convertor
+@onready var attempts_container: Control = $Main/Attempts
+@onready var win_panel: WinPanel = $Main/WinPanel
+@onready var lose_panel: LosePanel = $Main/LosePanel
+@onready var score_label: Label = $Main/ScoreLabel
+@onready var level_label: Label = $Main/LevelLabel
+
+@onready var menu: CanvasLayer = $Menu
+@onready var exit_dialog: ConfirmationDialog = $Menu/ExitDialog
+@onready var exit_button: TextureButton = $Main/ExitButton
 
 
 func _ready() -> void:
+	exit_dialog.confirmed.connect(_on_exit_confirmed)
+	exit_dialog.canceled.connect(_on_exit_canceled)
+	exit_button.pressed.connect(_show_exit_dialog)
 	confirm_button.pressed.connect(_on_confirm_button_pressed)
 	
 	hint_used = Game.player_data.hint_used
@@ -57,6 +64,25 @@ func _ready() -> void:
 		convertor.init(result_signals.size())
 		convertor.unmatched_combos = Game.player_data.unmatched_signals
 	_dump_signals()
+
+
+func _process(_delta: float):
+	if Input.is_action_just_pressed("ui_cancel"):
+		_show_exit_dialog()
+
+
+func _show_exit_dialog():
+	menu.show()
+	exit_dialog.popup_centered()
+
+
+func _on_exit_confirmed():
+	menu.hide()
+	_game_over()
+
+
+func _on_exit_canceled():
+	menu.hide()
 
 
 func _generate_signals():
@@ -141,14 +167,7 @@ func _on_confirm_button_pressed() -> void:
 		Game.player_data.unmatched_signals = convertor.unmatched_combos
 		_update_match_button()
 		if attempts == 0:
-			var is_best_result = Game.player_data.update_best_score()
-			Game.player_data.run_in_progress = false
-			await _complete_level()
-			await lose_panel.show_stats(
-				Game.player_data.current_level, 
-				Game.player_data.current_score,
-				is_best_result
-			)
+			_game_over()
 			return
 		await get_tree().create_timer(1).timeout
 
@@ -164,6 +183,17 @@ func _complete_level() -> void:
 	for source in source_signals.get_children():
 		tween.parallel().tween_property(source, 'scale', Vector2.ZERO, 0.2)
 	await tween.finished
+
+
+func _game_over():
+	var is_best_result = Game.player_data.update_best_score()
+	Game.player_data.run_in_progress = false
+	await _complete_level()
+	await lose_panel.show_stats(
+		Game.player_data.current_level, 
+		Game.player_data.current_score,
+		is_best_result
+	)
 
 
 func _show_error_graph() -> void:

@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://1agcxa80uqew" path="res://src/util/shaker.gd" id="4_ubufw"]
 
 [node name="AttemptMarker" type="TextureRect"]
-texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
 texture = ExtResource("1_2tl72")
 expand_mode = 2

@@ -228,11 +228,11 @@ vertical_alignment = 1
 
 [node name="Graph" parent="CanvasLayer" instance=ExtResource("7_fxnhw")]
 offset_left = -32.0
-offset_top = 508.0
+offset_top = 484.0
 offset_right = 1952.0
-offset_bottom = 736.0
+offset_bottom = 708.0
 color = Color(0.17, 0.17, 0.17, 0)
-max_amplitude = 2.0
+max_amplitude = 1.5
 graphs = Array[ExtResource("8_skmr6")]([SubResource("Resource_bgd1n"), SubResource("Resource_um11b"), SubResource("Resource_l76ay")])
 draw_grid = false
 
