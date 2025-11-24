@@ -1,22 +1,26 @@
 [gd_scene load_steps=3 format=3 uid="uid://dyl2x58uhkund"]
 
 [ext_resource type="Script" uid="uid://btgtso5fm0obo" path="res://result_signal.gd" id="1_gjgu6"]
-[ext_resource type="PackedScene" uid="uid://cn6r3p51pbj3i" path="res://signal_graph.tscn" id="1_iqxn3"]
+[ext_resource type="Script" uid="uid://1agcxa80uqew" path="res://src/util/shaker.gd" id="3_34o2n"]
 
-[node name="ResultSignal" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="ResultSignal" type="ColorRect"]
+custom_minimum_size = Vector2(640, 640)
+anchors_preset = -1
+anchor_right = 0.333
+anchor_bottom = 0.59300005
+offset_right = 0.64001465
+offset_bottom = -0.44006348
+color = Color(0, 0.08235294, 0.09019608, 1)
 script = ExtResource("1_gjgu6")
 
-[node name="Graph" parent="." instance=ExtResource("1_iqxn3")]
-layout_mode = 0
-offset_right = 640.0
-offset_bottom = 640.0
-color = Color(0, 0.08235294, 0.09019608, 1)
-points_number = 1000
-line_color = Color(0.14117648, 0.9411765, 1, 1)
-glow_color = Color(0, 0.63529414, 0.92156863, 0.6745098)
-secondary_color = Color(0.14509805, 0.972549, 0.20784314, 1)
-line_width = 2.0
-border_width = 4.0
-border_color = Color(0, 0.68235296, 0.9882353, 0.54901963)
+[node name="Shaker" type="Node" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_34o2n")
+target = NodePath("..")
+amount = 6.0
+metadata/_custom_type_script = "uid://1agcxa80uqew"
+
+[node name="Border" type="Line2D" parent="."]
+points = PackedVector2Array(-2, -2, -2, 642, 642, 642, 642, -2)
+closed = true
+width = 4.0
+default_color = Color(0, 0.6765001, 0.99, 0.7529412)

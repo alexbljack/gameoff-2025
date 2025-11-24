@@ -1,6 +1,6 @@
-class_name Oscillator extends Node
+class_name Oscillator extends Resource
 
-const SPEED := 0.2
+static var SPEED := 0.15
 
 enum WaveType { SINE, SAW, SQUARE, TRIANGLE }
 
@@ -32,3 +32,11 @@ func _wave_sample(phase: float) -> float:
 
 func _get_frac(phase: float) -> float:
 	return fposmod(phase, TAU) / TAU
+
+
+static func rand_osc() -> Oscillator:
+	var osc = Oscillator.new()
+	osc.amplitide = snapped(randf_range(0.2, 1.0), 0.2)
+	osc.freq = snapped(randf_range(1, 5), 1.0) # randomize
+	osc.wave_type = randi_range(0, 3) as Oscillator.WaveType
+	return osc

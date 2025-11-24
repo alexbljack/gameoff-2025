@@ -12,11 +12,11 @@ config_version=5
 
 config/name="gameoff2025"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://global.gd"
+Game="*res://src/game.gd"
+SceneManager="*res://src/util/scene_manager.gd"
 
 [display]
 

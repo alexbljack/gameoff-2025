@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://h7emc2k5ok36"]
+
+[ext_resource type="Script" uid="uid://byli6va5pedon" path="res://src/convertor/signal_slot.gd" id="1_c24ra"]
+
+[node name="Slot" type="ColorRect"]
+custom_minimum_size = Vector2(192, 192)
+offset_right = 96.0
+offset_bottom = 96.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.15127608, 0.15127608, 0.15127608, 0.47843137)
+script = ExtResource("1_c24ra")
+
+[node name="Border" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 192, 192, 192, 192, 0)
+closed = true
+width = 4.0
+default_color = Color(0.95, 0, 0.95, 0.58431375)
+antialiased = true
