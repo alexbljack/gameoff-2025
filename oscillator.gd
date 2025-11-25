@@ -34,13 +34,12 @@ func _get_frac(phase: float) -> float:
 	return fposmod(phase, TAU) / TAU
 
 
-static func rand_osc(phase_shift: bool = false) -> Oscillator:
+static func rand_osc() -> Oscillator:
 	var osc = Oscillator.new()
 	osc.amplitide = snapped(randf_range(0.2, 1.0), 0.2)
 	osc.freq = snapped(randf_range(1, 5), 1.0)
 	osc.wave_type = randi_range(0, 3) as Oscillator.WaveType
-	if phase_shift:
-		osc.phase_offset = snapped(randf_range(0, 1), 0.25)
+	osc.phase_offset = snapped(randf_range(0, 1), 0.25)
 	return osc
 
 

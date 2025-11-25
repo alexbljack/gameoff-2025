@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var max_oscillators: int = 2
+@export var source_signals_count: int = 2
 @export var on_hint_removed: int = 3
 
 var attempts: int:
@@ -47,21 +48,24 @@ func _ready() -> void:
 
 	_load_data()
 
-	if not Game.player_data.current_sources:
-		max_oscillators = 2 if Game.player_data.current_level < Const.DIFFICULTY_INCREASE_LEVEL else 3 
-		convertor.init(max_oscillators)
+	var level_data = Game.LEVELS_DATA[Game.player_data.current_level]
+	source_signals_count = level_data[0]
+	max_oscillators = level_data[1]
+	convertor.init(max_oscillators)
+
+	if not Game.player_data.current_sources: 
 		_generate_signals()
 	else:
 		for i in range(Const.MAX_SOURCES):
 			var graph: SourceSignal = source_signals.get_child(i)
 			if i < Game.player_data.current_sources.size():
-				var osc = Game.player_data.current_sources[i]
+				var osc: Array[Oscillator]
+				osc.assign(Game.player_data.current_sources[i])
 				_init_source_graph(graph, osc)
 			else:
 				graph.queue_free()
 		result_signals = Game.player_data.current_result_signals
-		result_graph.init(result_signals)
-		convertor.init(result_signals.size())
+		result_graph.init(result_signals)		
 		convertor.unmatched_combos = Game.player_data.unmatched_signals
 	_dump_signals()
 
@@ -73,18 +77,19 @@ func _process(_delta: float):
 
 func _generate_signals():
 	var signals = []
-	var phase_shift = Game.player_data.current_level > Const.START_PHASE_SHIFT_FROM_LEVEL
 	for j in range(Const.MAX_SOURCES):
-		var osc: Oscillator
-		while true:
-			osc = Oscillator.rand_osc(phase_shift)
-			if not signals.any(func (s): return Oscillator.equal(osc, s)):
-				signals.append(osc)
-				break
+		var oscs: Array[Oscillator] = []
+		while oscs.size() < source_signals_count:
+			var _osc := Oscillator.rand_osc()
+			if not signals.any(func (s): return Oscillator.equal(_osc, s)):
+				signals.append(_osc)
+				oscs.append(_osc)
 		var graph: SourceSignal = source_signals.get_child(j)
-		_init_source_graph(graph, osc)
+		_init_source_graph(graph, oscs)
 
-	result_signals = Utils.get_random_items(sources.map(func (s): return s.oscillator), max_oscillators)
+	var result_sources = Utils.get_random_items(sources, max_oscillators)
+	for source in result_sources:
+		result_signals.append_array(source.oscillators)
 	result_graph.init(result_signals)
 
 
@@ -93,8 +98,8 @@ func _load_data():
 	score_label.text = "Score %s" % Game.player_data.current_score
 
 
-func _init_source_graph(graph: SourceSignal, osc: Oscillator):
-	graph.init(osc)
+func _init_source_graph(graph: SourceSignal, oscs: Array[Oscillator]):
+	graph.init(oscs)
 	graph.clicked.connect(_on_source_clicked)
 	graph.hovered.connect(_on_source_hovered)
 	graph.left.connect(_on_source_left)
@@ -102,7 +107,7 @@ func _init_source_graph(graph: SourceSignal, osc: Oscillator):
 
 
 func _dump_signals():
-	Game.player_data.current_sources = sources.map(func (s): return s.oscillator)
+	Game.player_data.current_sources = sources.map(func (s): return s.oscillators)
 	Game.player_data.current_result_signals = result_signals
 
 
@@ -194,21 +199,21 @@ func _show_error_graph() -> void:
 
 
 func _update_match_button() -> void:
-	if convertor.has_free_slot or convertor.is_already_unmatched():
+	if convertor.has_free_slot or convertor.is_already_unmatched(result_signals.size()):
 		confirm_button.deactivate()
 	else:
 		confirm_button.activate()
 
 
 func _update_history_graph():
-	if convertor.is_already_unmatched():
+	if convertor.is_already_unmatched(result_signals.size()):
 		_show_error_graph()
 	else:
 		result_graph.hide_error_graph()
 
 
 func _on_source_hovered(source: SourceSignal):
-	result_graph.show_demo_graph(source.oscillator)
+	result_graph.show_demo_graph(source.oscillators)
 
 
 func _on_source_left(_source: SourceSignal):
@@ -220,7 +225,8 @@ func _on_hint_button_button_down() -> void:
 	hint_used = true
 	var candidates = []
 	for source in sources:
-		if source.oscillator in result_signals or not source:
+		var is_valid = source.oscillators.all(func (o): return o in result_signals) 
+		if is_valid or not source:
 			continue
 		candidates.append(source)
 

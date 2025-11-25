@@ -35,8 +35,8 @@ func init(_oscillators) -> void:
 	graphs.append(success_graph)
 
 
-func show_demo_graph(_oscillator: Oscillator) -> void:
-	demo_graph.oscillators.assign([_oscillator])
+func show_demo_graph(_oscillator: Array[Oscillator]) -> void:
+	demo_graph.oscillators.assign(_oscillator)
 
 
 func hide_demo_graph() -> void:

@@ -17,6 +17,7 @@ pivot_offset = Vector2(96, 96)
 mouse_filter = 1
 color = Color(0, 0.08235294, 0.09019608, 1)
 script = ExtResource("1_ndcdy")
+max_amplitude = 4.0
 graphs = Array[ExtResource("2_a45ep")]([SubResource("Resource_igfjf")])
 
 [node name="Shaker" type="Node" parent="." node_paths=PackedStringArray("target")]

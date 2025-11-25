@@ -35,18 +35,20 @@ func get_signals_in_slots() -> Array:
 
 
 func get_oscillators() -> Array:
-	return get_signals_in_slots().map(
-		func (s): return s.oscillator if s else null
-	).filter(func (o): return o != null)
+	var result := []
+	for source in get_signals_in_slots():
+		if source != null:
+			result.append_array(source.oscillators)
+	return result
 
 
 func save_unmatched():
 	unmatched_combos.append(get_oscillators())
 
 
-func is_already_unmatched() -> bool:
+func is_already_unmatched(results_count) -> bool:
 	var oscs = get_oscillators()
-	if oscs.size() < slots.size():
+	if oscs.size() < results_count:
 		return false
 
 	for combo in unmatched_combos:

@@ -8,18 +8,18 @@ signal left(source)
 @onready var shaker: Shaker = $Shaker
 @onready var border: Line2D = $Border
 
-var oscillator: Oscillator
+var oscillators: Array[Oscillator]
 var selected: bool = false
 var assigned_to: Slot = null
 var alpha: float
 var input_enabled := true
 
 
-func init(_oscillator: Oscillator):
-	oscillator = _oscillator
+func init(_oscillators: Array[Oscillator]):
+	oscillators = _oscillators
 	var graph = GraphConfig.new()
 	graph.line = line
-	graph.oscillators.assign([_oscillator])
+	graph.oscillators.assign(_oscillators)
 	graphs.assign([graph])
 
 
