@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func show_stats(level: int, score: int, is_best_result: bool):
-	level_reached.text = "%s" % level
+	level_reached.text = "%s / %s" % [level, Const.MAX_LEVEL]
 	score_earned.text = "%s" % score
 	show()
 	var tween = create_tween()

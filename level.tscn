@@ -282,9 +282,9 @@ offset_bottom = 680.0
 
 [node name="ConfirmButton" parent="Main" instance=ExtResource("8_2orkt")]
 z_index = 3
-offset_left = 816.0
+offset_left = 822.0
 offset_top = 960.0
-offset_right = 1104.0
+offset_right = 1098.0
 offset_bottom = 1048.0
 theme_override_font_sizes/font_size = 60
 
@@ -327,7 +327,7 @@ theme_override_colors/font_outline_color = Color(0.7490196, 0.78039217, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("9_8cye3")
 theme_override_font_sizes/font_size = 72
-text = "Level 10"
+text = "Level 10 / 20"
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="Main"]

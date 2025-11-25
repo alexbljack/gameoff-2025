@@ -89,7 +89,7 @@ func _generate_signals():
 
 
 func _load_data():
-	level_label.text = "Level %s" % Game.player_data.current_level
+	level_label.text = "Level %s / %s" % [Game.player_data.current_level, Const.MAX_LEVEL]
 	score_label.text = "Score %s" % Game.player_data.current_score
 
 
@@ -179,6 +179,7 @@ func _complete_level() -> void:
 
 func _game_over():
 	var is_best_result = Game.player_data.update_best_score()
+	Game.player_data.update_best_level()
 	Game.player_data.run_in_progress = false
 	await _complete_level()
 	await lose_panel.show_stats(

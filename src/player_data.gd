@@ -9,6 +9,11 @@ const SAVE_FILE_PATH = SAVES_DIR + SAVE_FILE
 		best_score = new_value
 		try_save()
 
+@export var best_level: int = 0:
+	set(new_value):
+		best_level = new_value
+		try_save()
+
 @export var run_in_progress: bool = false:
 	set(new_value):
 		run_in_progress = new_value
@@ -70,6 +75,13 @@ func try_save() -> void:
 func update_best_score() -> bool:
 	if current_score > best_score:
 		best_score = current_score
+		return true
+	return false
+
+
+func update_best_level() -> bool:
+	if current_level > best_level:
+		best_level = current_level
 		return true
 	return false
 

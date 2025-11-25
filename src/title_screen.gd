@@ -3,23 +3,31 @@ extends Node2D
 @export var level_scene: PackedScene
 
 @onready var best_score: Label = $CanvasLayer/BestResultLabel
+@onready var best_level: Label = $CanvasLayer/BestLevelLabel
 @onready var start_button: Button = $CanvasLayer/StartButton
 @onready var run_info: Label = $CanvasLayer/RunInfo
 
 
 func _ready() -> void:
 	best_score.hide()
+	best_level.hide()
 	run_info.hide()
 
 	_init_save()
 
 	if Game.player_data.best_score > 0:
 		best_score.text = "Best score %s" % Game.player_data.best_score
+		best_level.text = "Max level %s" % Game.player_data.best_level
 		best_score.show()
+		best_level.show()
 
 	if Game.player_data.run_in_progress:
 		run_info.show()
-		run_info.text = "Level %s\nScore %s" % [Game.player_data.current_level, Game.player_data.current_score]
+		run_info.text = "Level %s / %s\nScore %s" % [
+			Game.player_data.current_level,
+			Const.MAX_LEVEL, 
+			Game.player_data.current_score
+		]
 		start_button.text = "Continue"
 		start_button.pressed.connect(_on_continue)
 	else:

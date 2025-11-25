@@ -9,12 +9,24 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_003k4"]
 texture = ExtResource("3_q8xh0")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d43n2"]
 texture = ExtResource("4_gadmd")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tqkm8"]
 texture = ExtResource("5_qaie5")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
 
 [node name="LosePanel" type="Control"]
 layout_mode = 3
@@ -47,10 +59,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -224.0
+offset_left = -320.0
 offset_top = -176.0
-offset_right = 224.0
-offset_bottom = -80.0
+offset_right = 320.0
+offset_bottom = -76.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -60,7 +72,7 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_top = -32.5
-offset_right = 128.0
+offset_right = 289.0
 offset_bottom = 32.5
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_6vm6q")
@@ -75,7 +87,7 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -182.0
+offset_left = -198.0
 offset_top = -32.5
 offset_bottom = 32.5
 grow_horizontal = 0
@@ -85,7 +97,7 @@ theme_override_colors/font_outline_color = Color(0.7490196, 0.78039217, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("1_6vm6q")
 theme_override_font_sizes/font_size = 56
-text = "10"
+text = "10 / 20"
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -103,9 +115,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -224.0
+offset_left = -320.0
 offset_top = -84.0
-offset_right = 224.0
+offset_right = 320.0
 offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2

@@ -7,12 +7,21 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aicyk"]
 texture = ExtResource("2_1ri5t")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h6smj"]
 texture = ExtResource("3_jap5b")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dhlin"]
 bg_color = Color(0.16, 0.16, 0.16, 0.64705884)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.5649616, 0.5649617, 0.5649613, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dhlin"]
 
@@ -55,7 +64,7 @@ _data = {
 }
 
 [node name="ConfirmButton" type="Button"]
-offset_right = 176.0
+offset_right = 288.0
 offset_bottom = 88.0
 pivot_offset = Vector2(88, 44)
 focus_mode = 0

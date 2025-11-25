@@ -1,6 +1,6 @@
 class_name Oscillator extends Resource
 
-static var SPEED := 0.15
+static var SPEED := 0.13
 
 enum WaveType { SINE, SAW, SQUARE, TRIANGLE }
 
