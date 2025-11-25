@@ -89,7 +89,7 @@ void vertex() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_616sk"]
 shader = SubResource("Shader_vltpm")
 shader_parameter/amplitude = 10.000000475
-shader_parameter/speed = 1.5000000712500001
+shader_parameter/speed = 1.50000007125
 shader_parameter/phase = 0.0
 
 [sub_resource type="Shader" id="Shader_u3a1t"]
@@ -169,7 +169,7 @@ color = Color(9.024516e-08, 0.051215276, 0.08368423, 1)
 metadata/_edit_lock_ = true
 
 [node name="Grid" type="TextureRect" parent="CanvasLayer"]
-modulate = Color(1, 1, 1, 0.13725491)
+modulate = Color(1, 1, 1, 0.21568628)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

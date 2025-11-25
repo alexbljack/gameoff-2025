@@ -186,7 +186,7 @@ color = Color(9.024516e-08, 0.051215276, 0.08368423, 1)
 metadata/_edit_lock_ = true
 
 [node name="Grid" type="TextureRect" parent="Background"]
-modulate = Color(1, 1, 1, 0.13725491)
+modulate = Color(1, 1, 1, 0.28627452)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
