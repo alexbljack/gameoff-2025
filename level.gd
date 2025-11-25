@@ -26,6 +26,7 @@ var result_signals: Array
 @onready var attempts_container: Control = $Main/Attempts
 @onready var win_panel: WinPanel = $Main/WinPanel
 @onready var lose_panel: LosePanel = $Main/LosePanel
+@onready var awesome_panel: AwesomePanel = $Menu/AwesomePanel
 @onready var score_label: Label = $Main/ScoreLabel
 @onready var level_label: Label = $Main/LevelLabel
 
@@ -147,13 +148,22 @@ func _on_confirm_button_pressed() -> void:
 	if result:
 		result_graph.show_success_graph(signals)
 		await _complete_level()
+		Game.player_data.update_best_level()
 		if not hint_used:
 			Game.player_data.current_mult += Const.NO_HINT_MULT_INCREMENT
 		var earned = win_panel.calculate(attempts, hint_used, Game.player_data.current_mult)
 		Game.player_data.current_score += earned
-		Game.player_data.current_level += 1
-		Game.player_data.start_new_level()
-		await win_panel.show_stats()
+		var is_completed = Game.player_data.current_level == Const.MAX_LEVEL
+		if not is_completed:
+			Game.player_data.current_level += 1
+			Game.player_data.start_new_level()
+			await win_panel.show_stats(false)
+		else:
+			Game.player_data.run_in_progress = false
+			await win_panel.show_stats(true)
+			set_process(false)
+			menu.show()
+			awesome_panel.show_credits(Game.player_data.current_score)
 	else:
 		_show_error_graph()
 		attempts -= 1

@@ -25,7 +25,7 @@ func _ready() -> void:
 	next_level_button.hide()
 
 
-func show_stats():
+func show_stats(completed: bool):
 	show()
 	var tween = create_tween()
 	tween.tween_property(success_title, "scale", Vector2.ONE, 0.5)
@@ -36,7 +36,8 @@ func show_stats():
 		var shaker: Shaker = row.get_node("Shaker")
 		shaker.shake()
 		await shaker.finished
-	next_level_button.show()
+	if not completed:
+		next_level_button.show()
 
 
 func calculate(attempts: int, hint_used: bool, hint_mult: float):

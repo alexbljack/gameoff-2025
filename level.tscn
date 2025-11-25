@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ce4f4u57jqa5y"]
+[gd_scene load_steps=38 format=3 uid="uid://ce4f4u57jqa5y"]
 
 [ext_resource type="Script" uid="uid://dg2x286sjjtgg" path="res://level.gd" id="1_oi3di"]
 [ext_resource type="Texture2D" uid="uid://4cr4m0os7enb" path="res://assets/gridf.png" id="2_f2txt"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://o2rht176mmgv" path="res://lose_panel.tscn" id="14_v5j5c"]
 [ext_resource type="Texture2D" uid="uid://ccs6isdychcn" path="res://assets/Exit.png" id="15_5pxul"]
 [ext_resource type="Script" uid="uid://bwpaxfk8jwdny" path="res://exit_button.gd" id="16_fedht"]
+[ext_resource type="PackedScene" uid="uid://yng32sbdlnv7" path="res://awesome_panel.tscn" id="17_4c15r"]
 
 [sub_resource type="Gradient" id="Gradient_fedht"]
 colors = PackedColorArray(0.9490196, 0, 0.9490196, 0.77254903, 0, 0.6784314, 0.9882353, 0.7529412)
@@ -382,7 +383,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.07, 0.07, 0.07, 0.84313726)
+color = Color(0.07, 0.07, 0.07, 0.9098039)
 
 [node name="ExitDialog" type="ConfirmationDialog" parent="Menu"]
 oversampling_override = 1.0
@@ -397,6 +398,8 @@ keep_title_visible = false
 theme = SubResource("Theme_v5j5c")
 ok_button_text = "YES"
 dialog_text = "Abandon current run?"
+
+[node name="AwesomePanel" parent="Menu" instance=ExtResource("17_4c15r")]
 
 [node name="CRT" parent="." instance=ExtResource("13_8b0r0")]
 
