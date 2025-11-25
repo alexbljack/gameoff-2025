@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://ce4f4u57jqa5y"]
+[gd_scene load_steps=37 format=3 uid="uid://ce4f4u57jqa5y"]
 
 [ext_resource type="Script" uid="uid://dg2x286sjjtgg" path="res://level.gd" id="1_oi3di"]
 [ext_resource type="Texture2D" uid="uid://4cr4m0os7enb" path="res://assets/gridf.png" id="2_f2txt"]
@@ -17,6 +17,13 @@
 [ext_resource type="PackedScene" uid="uid://o2rht176mmgv" path="res://lose_panel.tscn" id="14_v5j5c"]
 [ext_resource type="Texture2D" uid="uid://ccs6isdychcn" path="res://assets/Exit.png" id="15_5pxul"]
 [ext_resource type="Script" uid="uid://bwpaxfk8jwdny" path="res://exit_button.gd" id="16_fedht"]
+
+[sub_resource type="Gradient" id="Gradient_fedht"]
+colors = PackedColorArray(0.9490196, 0, 0.9490196, 0.77254903, 0, 0.6784314, 0.9882353, 0.7529412)
+
+[sub_resource type="Gradient" id="Gradient_4c15r"]
+offsets = PackedFloat32Array(0.45081967, 1)
+colors = PackedColorArray(1, 0.5686275, 0.9882353, 1, 0.5137255, 0.8039216, 1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aicyk"]
 texture = ExtResource("9_2orkt")
@@ -191,20 +198,32 @@ metadata/_edit_lock_ = true
 
 [node name="Main" type="CanvasLayer" parent="."]
 
+[node name="Line2D" type="Line2D" parent="Main"]
+points = PackedVector2Array(1100, 587, 1122.7563, 587, 1164, 587)
+width = 12.0
+default_color = Color(0.9490196, 0, 0.9490196, 0.77254903)
+gradient = SubResource("Gradient_fedht")
+
+[node name="Line2D2" type="Line2D" parent="Main"]
+points = PackedVector2Array(1096, 587, 1168, 587)
+width = 4.0
+default_color = Color(1, 0.5686275, 0.9882353, 1)
+gradient = SubResource("Gradient_4c15r")
+
 [node name="Convertor" parent="Main" instance=ExtResource("4_8b0r0")]
 offset_left = 832.0
 offset_top = 248.0
 offset_right = 1088.0
-offset_bottom = 918.0
+offset_bottom = 920.0
 
 [node name="SourceSignals" type="Control" parent="Main"]
 layout_mode = 3
 anchor_right = 0.558
 anchor_bottom = 0.86700004
-offset_left = 64.0
-offset_top = 264.0
-offset_right = -367.3601
-offset_bottom = -32.360046
+offset_left = 72.0
+offset_top = 244.0
+offset_right = -303.3601
+offset_bottom = 3.6399536
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -215,63 +234,57 @@ layout_mode = 0
 
 [node name="Source_2" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
-offset_left = 224.0
-offset_right = 416.0
+offset_left = 244.0
+offset_right = 436.0
 
 [node name="Source_3" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
-offset_left = 448.0
-offset_right = 640.0
+offset_left = 488.0
+offset_right = 680.0
 
 [node name="Source_4" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
-offset_top = 224.0
-offset_bottom = 416.0
+offset_top = 244.0
+offset_bottom = 436.0
 
 [node name="Source_5" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
-offset_left = 224.0
-offset_top = 224.0
-offset_right = 416.0
-offset_bottom = 416.0
+offset_left = 244.0
+offset_top = 244.0
+offset_right = 436.0
+offset_bottom = 436.0
 
 [node name="Source_6" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
-offset_left = 448.0
-offset_top = 224.0
-offset_right = 640.0
-offset_bottom = 416.0
+offset_left = 488.0
+offset_top = 244.0
+offset_right = 680.0
+offset_bottom = 436.0
 
 [node name="Source_7" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
-offset_top = 448.0
-offset_bottom = 640.0
+offset_top = 488.0
+offset_bottom = 680.0
 
 [node name="Source_8" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
-offset_left = 224.0
-offset_top = 448.0
-offset_right = 416.0
-offset_bottom = 640.0
+offset_left = 244.0
+offset_top = 488.0
+offset_right = 436.0
+offset_bottom = 680.0
 
 [node name="Source_9" parent="Main/SourceSignals" instance=ExtResource("3_oi3di")]
 layout_mode = 0
-offset_left = 448.0
-offset_top = 448.0
-offset_right = 640.0
-offset_bottom = 640.0
-
-[node name="ResultSignal" parent="Main" instance=ExtResource("3_0b4ue")]
-offset_left = 1216.0
-offset_top = 263.0
-offset_right = 1216.64
-offset_bottom = 262.55994
+offset_left = 488.0
+offset_top = 488.0
+offset_right = 680.0
+offset_bottom = 680.0
 
 [node name="ConfirmButton" parent="Main" instance=ExtResource("8_2orkt")]
 z_index = 3
-offset_left = 832.0
+offset_left = 816.0
 offset_top = 960.0
-offset_right = 1088.0
+offset_right = 1104.0
 offset_bottom = 1048.0
 theme_override_font_sizes/font_size = 60
 
@@ -298,17 +311,17 @@ libraries = {
 }
 
 [node name="Attempts" parent="Main" instance=ExtResource("12_8b0r0")]
-offset_left = -704.0
-offset_top = -380.0
-offset_right = -64.0
-offset_bottom = -316.0
+offset_left = -699.0
+offset_top = -412.0
+offset_right = -59.0
+offset_bottom = -348.0
 
 [node name="LevelLabel" type="Label" parent="Main"]
 material = SubResource("ShaderMaterial_aicyk")
 offset_left = 64.0
-offset_top = 48.0
+offset_top = 40.0
 offset_right = 704.0
-offset_bottom = 131.0
+offset_bottom = 123.0
 theme_override_colors/font_color = Color(0.92182696, 0.99999696, 0.50211465, 1)
 theme_override_colors/font_outline_color = Color(0.7490196, 0.78039217, 0, 1)
 theme_override_constants/outline_size = 6
@@ -320,9 +333,9 @@ vertical_alignment = 1
 [node name="ScoreLabel" type="Label" parent="Main"]
 material = SubResource("ShaderMaterial_8b0r0")
 offset_left = 64.0
-offset_top = 160.0
+offset_top = 136.0
 offset_right = 704.0
-offset_bottom = 221.0
+offset_bottom = 197.0
 theme_override_colors/font_color = Color(1, 0.56743807, 0.99001366, 1)
 theme_override_colors/font_outline_color = Color(0.8780115, 0.0006434119, 0.8822325, 1)
 theme_override_constants/outline_size = 6
@@ -343,21 +356,22 @@ visible = false
 offset_top = 256.0
 offset_bottom = 880.04
 
-[node name="Line2D" type="Line2D" parent="Main"]
-points = PackedVector2Array(1090, 576, 1212, 576)
-width = 4.0
-default_color = Color(0.9490196, 0, 0.9490196, 0.77254903)
-
 [node name="ExitButton" type="TextureButton" parent="Main"]
 modulate = Color(0.6241873, 0.8020108, 0.92560536, 1)
-offset_left = 1792.0
-offset_top = 64.0
-offset_right = 1856.0
-offset_bottom = 128.0
+offset_left = 1797.0
+offset_top = 30.0
+offset_right = 1861.0
+offset_bottom = 94.0
 pivot_offset = Vector2(32, 32)
 texture_normal = ExtResource("15_5pxul")
 stretch_mode = 0
 script = ExtResource("16_fedht")
+
+[node name="ResultSignal" parent="Main" instance=ExtResource("3_0b4ue")]
+offset_left = 1176.0
+offset_top = 248.0
+offset_right = 1176.0
+offset_bottom = 248.23993
 
 [node name="Menu" type="CanvasLayer" parent="."]
 visible = false
@@ -385,6 +399,5 @@ ok_button_text = "YES"
 dialog_text = "Abandon current run?"
 
 [node name="CRT" parent="." instance=ExtResource("13_8b0r0")]
-visible = false
 
 [connection signal="button_down" from="Main/HintButton" to="." method="_on_hint_button_button_down"]

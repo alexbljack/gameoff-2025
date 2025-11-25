@@ -48,6 +48,7 @@ func _ready() -> void:
 	_load_data()
 
 	if not Game.player_data.current_sources:
+		max_oscillators = 2 if Game.player_data.current_level < Const.DIFFICULTY_INCREASE_LEVEL else 3 
 		convertor.init(max_oscillators)
 		_generate_signals()
 	else:
@@ -55,7 +56,6 @@ func _ready() -> void:
 			var graph: SourceSignal = source_signals.get_child(i)
 			if i < Game.player_data.current_sources.size():
 				var osc = Game.player_data.current_sources[i]
-				
 				_init_source_graph(graph, osc)
 			else:
 				graph.queue_free()
@@ -71,24 +71,17 @@ func _process(_delta: float):
 		_show_exit_dialog()
 
 
-func _show_exit_dialog():
-	menu.show()
-	exit_dialog.popup_centered()
-
-
-func _on_exit_confirmed():
-	menu.hide()
-	_game_over()
-
-
-func _on_exit_canceled():
-	menu.hide()
-
-
 func _generate_signals():
+	var signals = []
+	var phase_shift = Game.player_data.current_level > Const.START_PHASE_SHIFT_FROM_LEVEL
 	for j in range(Const.MAX_SOURCES):
-		var osc = Oscillator.rand_osc()
-		var graph: SourceSignal = source_signals.get_child(j)  # ensure all random graphs
+		var osc: Oscillator
+		while true:
+			osc = Oscillator.rand_osc(phase_shift)
+			if not signals.any(func (s): return Oscillator.equal(osc, s)):
+				signals.append(osc)
+				break
+		var graph: SourceSignal = source_signals.get_child(j)
 		_init_source_graph(graph, osc)
 
 	result_signals = Utils.get_random_items(sources.map(func (s): return s.oscillator), max_oscillators)
@@ -151,8 +144,6 @@ func _on_confirm_button_pressed() -> void:
 		await _complete_level()
 		if not hint_used:
 			Game.player_data.current_mult += Const.NO_HINT_MULT_INCREMENT
-		else:
-			Game.player_data.current_mult = 1.0
 		var earned = win_panel.calculate(attempts, hint_used, Game.player_data.current_mult)
 		Game.player_data.current_score += earned
 		Game.player_data.current_level += 1
@@ -177,6 +168,7 @@ func _complete_level() -> void:
 	score_label.hide()
 	confirm_button.hide()
 	hint_button.hide()
+	exit_button.hide()
 	var tween = create_tween()
 	for s in sources:
 		s.input_enabled = false
@@ -243,3 +235,17 @@ func _on_hint_button_button_down() -> void:
 		source.queue_free()
 	
 	_dump_signals()
+
+
+func _show_exit_dialog():
+	menu.show()
+	exit_dialog.popup_centered()
+
+
+func _on_exit_confirmed():
+	menu.hide()
+	_game_over()
+
+
+func _on_exit_canceled():
+	menu.hide()
