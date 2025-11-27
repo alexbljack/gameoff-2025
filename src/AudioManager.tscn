@@ -1,0 +1,89 @@
+[gd_scene load_steps=15 format=3 uid="uid://kyrbgqvk3o0h"]
+
+[ext_resource type="Script" uid="uid://bsqtf2ijbyfnv" path="res://src/audio_manager.gd" id="1_4cn0m"]
+[ext_resource type="AudioStream" uid="uid://cp0ceompdp574" path="res://assets/sound/SynthWave_2.wav" id="1_vlde7"]
+[ext_resource type="AudioStream" uid="uid://jsqy71ervbeo" path="res://assets/sound/sfx/confirm.wav" id="3_ht8ya"]
+[ext_resource type="AudioStream" uid="uid://b6f8wwag0r2kd" path="res://assets/sound/sfx/wrong_sync.wav" id="3_yrmir"]
+[ext_resource type="AudioStream" uid="uid://8cubw3ciavrc" path="res://assets/sound/sfx/button_hover.wav" id="4_86jvb"]
+[ext_resource type="AudioStream" uid="uid://c1piuj056q2on" path="res://assets/sound/sfx/graph_hover.wav" id="4_ebjbm"]
+[ext_resource type="AudioStream" uid="uid://c1dqj0adtal22" path="res://assets/sound/sfx/valid_sync.wav" id="4_yrmir"]
+[ext_resource type="AudioStream" uid="uid://ba3exjiavq0gf" path="res://assets/sound/sfx/button_click.wav" id="5_86jvb"]
+[ext_resource type="AudioStream" uid="uid://ckt1f3q1f3i86" path="res://assets/sound/sfx/graph_click.wav" id="5_qk6u0"]
+[ext_resource type="AudioStream" uid="uid://o7oql6quts8r" path="res://assets/sound/sfx/plot_denieed.wav" id="8_qjqll"]
+[ext_resource type="AudioStream" uid="uid://dg5jjn7nalynx" path="res://assets/sound/sfx/hint_used.wav" id="10_86jvb"]
+[ext_resource type="AudioStream" uid="uid://upetu847giq4" path="res://assets/sound/sfx/game_over.wav" id="11_n7w77"]
+[ext_resource type="AudioStream" uid="uid://cdvceul01ttlb" path="res://assets/sound/sfx/results.wav" id="13_n7w77"]
+[ext_resource type="AudioStream" uid="uid://dj5tubi223a7k" path="res://assets/sound/sfx/best_result.wav" id="14_0ch3v"]
+
+[node name="AudioManager" type="Node" node_paths=PackedStringArray("sfx_confirm", "sfx_wrong_sync", "sfx_valid_sync", "sfx_plot_hover", "sfx_plot_click", "sfx_plot_denied", "sfx_button_hover", "sfx_button_click", "sfx_hint_use", "sfx_game_over", "sfx_results", "sfx_best_result")]
+script = ExtResource("1_4cn0m")
+sfx_confirm = NodePath("SFX/Confirm")
+sfx_wrong_sync = NodePath("SFX/WrongSync")
+sfx_valid_sync = NodePath("SFX/ValidSync")
+sfx_plot_hover = NodePath("SFX/GraphHover")
+sfx_plot_click = NodePath("SFX/GraphClick")
+sfx_plot_denied = NodePath("SFX/GraphDenied")
+sfx_button_hover = NodePath("SFX/ButtonHover")
+sfx_button_click = NodePath("SFX/ButtonClick")
+sfx_hint_use = NodePath("SFX/HintUse")
+sfx_game_over = NodePath("SFX/GameOver")
+sfx_results = NodePath("SFX/ResultsShow")
+sfx_best_result = NodePath("SFX/BestResult")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_vlde7")
+autoplay = true
+bus = &"Music"
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Confirm" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("3_ht8ya")
+bus = &"SFX"
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("4_86jvb")
+bus = &"SFX"
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("5_86jvb")
+bus = &"SFX"
+
+[node name="GraphHover" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("4_ebjbm")
+bus = &"SFX"
+
+[node name="GraphClick" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("5_qk6u0")
+volume_db = 5.266
+bus = &"SFX"
+
+[node name="GraphDenied" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("8_qjqll")
+volume_db = -17.114
+bus = &"SFX"
+
+[node name="WrongSync" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("3_yrmir")
+bus = &"SFX"
+
+[node name="ValidSync" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("4_yrmir")
+bus = &"SFX"
+
+[node name="GameOver" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("11_n7w77")
+volume_db = -0.658
+bus = &"SFX"
+
+[node name="HintUse" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("10_86jvb")
+bus = &"SFX"
+
+[node name="ResultsShow" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("13_n7w77")
+bus = &"SFX"
+
+[node name="BestResult" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("14_0ch3v")
+bus = &"SFX"

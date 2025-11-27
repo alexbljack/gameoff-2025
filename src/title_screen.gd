@@ -9,6 +9,7 @@ extends Node2D
 
 
 func _ready() -> void:
+	start_button.mouse_entered.connect(_on_start_button_mouse_hovered)
 	best_score.hide()
 	best_level.hide()
 	run_info.hide()
@@ -48,8 +49,14 @@ func _on_new_game() -> void:
 	Game.player_data.save_file = PlayerData.SAVE_FILE_PATH
 	Game.player_data.start_new_game()
 	Game.player_data.start_new_level()
+	AudioManager.sfx_confirm.play()
 	SceneManager.load_level()
 
 
 func _on_continue() -> void:
+	AudioManager.sfx_confirm.play()
 	SceneManager.load_level()
+
+
+func _on_start_button_mouse_hovered():
+	AudioManager.sfx_button_hover.play()

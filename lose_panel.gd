@@ -28,6 +28,10 @@ func show_stats(level: int, score: int, is_best_result: bool):
 	if is_best_result:
 		rows.append(best_result_label)
 	for row: Control in rows:
+		if row == best_result_label:
+			AudioManager.sfx_best_result.play()
+		else:
+			AudioManager.sfx_results.play()
 		row.show()
 		var shaker: Shaker = row.get_node("Shaker")
 		shaker.shake()
@@ -36,4 +40,9 @@ func show_stats(level: int, score: int, is_best_result: bool):
 
 
 func _on_return_button_pressed() -> void:
+	AudioManager.sfx_confirm.play()
 	SceneManager.load_title()
+
+
+func _on_return_button_mouse_entered() -> void:
+	AudioManager.sfx_button_hover.play()

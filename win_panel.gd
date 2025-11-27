@@ -32,6 +32,7 @@ func show_stats(completed: bool):
 	await tween.finished
 	var rows = [attempts_score, hints_score, hints_mult, total_score]
 	for row: Control in rows:
+		AudioManager.sfx_results.play()
 		row.show()
 		var shaker: Shaker = row.get_node("Shaker")
 		shaker.shake()
@@ -65,5 +66,9 @@ func calculate(attempts: int, hint_used: bool, hint_mult: float):
 
 
 func _on_next_level_button_pressed() -> void:
+	AudioManager.sfx_confirm.play()
 	SceneManager.load_level()
 
+
+func _on_next_level_button_mouse_entered() -> void:
+	AudioManager.sfx_button_hover.play()

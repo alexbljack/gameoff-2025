@@ -280,4 +280,5 @@ amount = 7.0
 duration = 0.5
 metadata/_custom_type_script = "uid://1agcxa80uqew"
 
+[connection signal="mouse_entered" from="NextLevelButton" to="." method="_on_next_level_button_mouse_entered"]
 [connection signal="pressed" from="NextLevelButton" to="." method="_on_next_level_button_pressed"]

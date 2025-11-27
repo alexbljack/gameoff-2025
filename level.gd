@@ -36,6 +36,9 @@ var result_signals: Array
 
 
 func _ready() -> void:
+	for button in [exit_button, confirm_button, hint_button]:
+		button.mouse_entered.connect(_on_button_mouse_entered.bind(button))
+
 	exit_dialog.confirmed.connect(_on_exit_confirmed)
 	exit_dialog.canceled.connect(_on_exit_canceled)
 	exit_button.pressed.connect(_show_exit_dialog)
@@ -114,6 +117,7 @@ func _dump_signals():
 
 func _on_source_clicked(source: SourceSignal):
 	if source.assigned_to:
+		AudioManager.sfx_plot_click.play()
 		source.assigned_to.source_signal = null
 		source.assigned_to = null
 		_update_match_button()
@@ -126,6 +130,7 @@ func _on_source_clicked(source: SourceSignal):
 		return
 
 	if convertor.has_free_slot:
+		AudioManager.sfx_plot_click.play()
 		var slot = convertor.get_free_slot()
 		var tween = create_tween()
 		tween.tween_property(source, "global_position", slot.global_position, 0.3)
@@ -136,6 +141,7 @@ func _on_source_clicked(source: SourceSignal):
 		_update_match_button()
 		_update_history_graph()
 	else:
+		AudioManager.sfx_plot_denied.play()
 		await source.shaker.shake()
 
 
@@ -146,6 +152,7 @@ func _on_confirm_button_pressed() -> void:
 	)
 	
 	if result:
+		AudioManager.sfx_valid_sync.play()
 		result_graph.show_success_graph(signals)
 		await _complete_level()
 		Game.player_data.update_best_level()
@@ -165,6 +172,7 @@ func _on_confirm_button_pressed() -> void:
 			menu.show()
 			awesome_panel.show_credits(Game.player_data.current_score)
 	else:
+		AudioManager.sfx_wrong_sync.play()
 		_show_error_graph()
 		attempts -= 1
 		attempts_container.spend_attempt()
@@ -197,6 +205,7 @@ func _game_over():
 	Game.player_data.update_best_level()
 	Game.player_data.run_in_progress = false
 	await _complete_level()
+	AudioManager.sfx_game_over.play()
 	await lose_panel.show_stats(
 		Game.player_data.current_level, 
 		Game.player_data.current_score,
@@ -223,6 +232,7 @@ func _update_history_graph():
 
 
 func _on_source_hovered(source: SourceSignal):
+	AudioManager.sfx_plot_hover.play()
 	result_graph.show_demo_graph(source.oscillators)
 
 
@@ -231,6 +241,7 @@ func _on_source_left(_source: SourceSignal):
 
 
 func _on_hint_button_button_down() -> void:
+	AudioManager.sfx_hint_use.play()
 	hint_button.set_state(true)
 	hint_used = true
 	var candidates = []
@@ -266,3 +277,8 @@ func _on_exit_confirmed():
 
 func _on_exit_canceled():
 	menu.hide()
+
+
+func _on_button_mouse_entered(sender) -> void:
+	if not sender.disabled:
+		AudioManager.sfx_button_hover.play()

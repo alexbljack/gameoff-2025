@@ -205,4 +205,5 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_d43n2")
 theme_override_styles/hover = SubResource("StyleBoxTexture_tqkm8")
 text = "Return"
 
+[connection signal="mouse_entered" from="ReturnButton" to="." method="_on_return_button_mouse_entered"]
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
