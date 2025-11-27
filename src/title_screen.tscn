@@ -165,7 +165,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(9.024516e-08, 0.051215276, 0.08368423, 1)
+color = Color(0, 0.07946222, 0.11846807, 1)
 metadata/_edit_lock_ = true
 
 [node name="Grid" type="TextureRect" parent="CanvasLayer"]

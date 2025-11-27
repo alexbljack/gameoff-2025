@@ -5,7 +5,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_km5ld"]
 shader = ExtResource("1_4rbuf")
 shader_parameter/curvature = 6.0
-shader_parameter/vignette_multiplier = 0.05
+shader_parameter/vignette_multiplier = 0.2
 
 [sub_resource type="QuadMesh" id="QuadMesh_i2t4f"]
 size = Vector2(1920, 1080)

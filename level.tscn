@@ -182,7 +182,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(9.024516e-08, 0.051215276, 0.08368423, 1)
+color = Color(0, 0.078431375, 0.11764706, 1)
 metadata/_edit_lock_ = true
 
 [node name="Grid" type="TextureRect" parent="Background"]
@@ -359,10 +359,10 @@ offset_bottom = 880.04
 
 [node name="ExitButton" type="TextureButton" parent="Main"]
 modulate = Color(0.6241873, 0.8020108, 0.92560536, 1)
-offset_left = 1797.0
-offset_top = 30.0
-offset_right = 1861.0
-offset_bottom = 94.0
+offset_left = 1792.0
+offset_top = 32.0
+offset_right = 1856.0
+offset_bottom = 96.0
 pivot_offset = Vector2(32, 32)
 texture_normal = ExtResource("15_5pxul")
 stretch_mode = 0
