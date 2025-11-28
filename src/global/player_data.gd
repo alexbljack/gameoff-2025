@@ -49,41 +49,24 @@ const SAVE_FILE_PATH = SAVES_DIR + SAVE_FILE
 		unmatched_signals = new_value
 		try_save()
 
-
 @export var hint_used: bool = false:
 	set(new_value):
 		hint_used = new_value
 		try_save()
 
-@export var attempts_left: int = Const.MAX_ATTEMPTS:
+@export var attempts_left: int = Game.MAX_ATTEMPTS:
 	set(new_value):
 		attempts_left = new_value
 		try_save()
 
-var save_file: String = ""
-
-
-func save_to_file(file_path: String) -> void:
-	ResourceSaver.save(self, file_path)
+var save_to_file: bool = false
 
 
 func try_save() -> void:
-	if save_file:
-		save_to_file(save_file)
-
-
-func update_best_score() -> bool:
-	if current_score > best_score:
-		best_score = current_score
-		return true
-	return false
-
-
-func update_best_level() -> bool:
-	if current_level > best_level:
-		best_level = current_level
-		return true
-	return false
+	if save_to_file:
+		if not DirAccess.dir_exists_absolute(PlayerData.SAVES_DIR):
+			DirAccess.make_dir_recursive_absolute(PlayerData.SAVES_DIR)
+		ResourceSaver.save(self, SAVE_FILE_PATH)
 
 
 func start_new_game() -> void:
@@ -93,9 +76,14 @@ func start_new_game() -> void:
 	current_mult = 1.0
 
 
-func start_new_level() -> void:
+func reset_level() -> void:
 	current_sources = []
 	current_result_signals = []
 	unmatched_signals = []
-	attempts_left = Const.MAX_ATTEMPTS
+	attempts_left = Game.MAX_ATTEMPTS
 	hint_used = false
+
+
+func move_to_next_level():
+	current_level += 1
+	reset_level()

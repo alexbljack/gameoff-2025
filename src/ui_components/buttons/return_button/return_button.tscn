@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwocx3wqa6ndb"]
+
+[ext_resource type="Theme" uid="uid://bwb0mllwiqmux" path="res://src/data/ui_main.theme" id="1_bxg4b"]
+
+[node name="ReturnButton" type="Button"]
+offset_right = 320.0
+offset_bottom = 96.0
+focus_mode = 0
+theme = ExtResource("1_bxg4b")
+theme_type_variation = &"Main_Button"
+text = "Return"

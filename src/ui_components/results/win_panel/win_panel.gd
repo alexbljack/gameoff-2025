@@ -42,7 +42,7 @@ func show_stats(completed: bool):
 
 
 func calculate(attempts: int, hint_used: bool, hint_mult: float):
-	var score_for_attempts = attempts * Const.SCORE_PER_ATTEMPT
+	var score_for_attempts = attempts * Game.SCORE_PER_ATTEMPT
 	var total_earned: int = 0
 
 	attempts_count.text = "x %s" % attempts
@@ -55,9 +55,9 @@ func calculate(attempts: int, hint_used: bool, hint_mult: float):
 		hint_mult_increment.text = "(+0.0)"
 	else:
 		hint_state.text = "Hint saved"
-		hint_total.text = "+%s" % Const.SCORE_FOR_HINT
-		hint_mult_increment.text = "(+%s)" % Const.NO_HINT_MULT_INCREMENT
-		total_earned += Const.SCORE_FOR_HINT
+		hint_total.text = "+%s" % Game.SCORE_FOR_HINT
+		hint_mult_increment.text = "(+%s)" % Game.NO_HINT_MULT_INCREMENT
+		total_earned += Game.SCORE_FOR_HINT
 
 	total_earned = snapped(int(total_earned * hint_mult), 10)
 	total_score_label.text = "+%s" % total_earned

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cry4dg0ccj8om"]
 
-[ext_resource type="Script" uid="uid://js8pkqdeacb4" path="res://src/ui_components/source_signal/source_signal.gd" id="1_ndcdy"]
+[ext_resource type="Script" uid="uid://js8pkqdeacb4" path="res://src/ui_components/graphs/source_signal/source_signal.gd" id="1_ndcdy"]
 [ext_resource type="Script" uid="uid://bpo78me2lvaxo" path="res://src/waves/graph_config.gd" id="2_a45ep"]
-[ext_resource type="Resource" uid="uid://nwc7nnjwlooy" path="res://src/data/source_graph.tres" id="2_htail"]
+[ext_resource type="Resource" uid="uid://nwc7nnjwlooy" path="res://src/data/graph_styles/source_graph.tres" id="2_htail"]
 [ext_resource type="Script" uid="uid://1agcxa80uqew" path="res://src/util/shaker.gd" id="3_a45ep"]
 [ext_resource type="Script" uid="uid://c4anwulrallu3" path="res://src/waves/oscillator.gd" id="3_igfjf"]
 

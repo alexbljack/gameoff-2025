@@ -1,16 +1,13 @@
-[gd_scene load_steps=38 format=3 uid="uid://ce4f4u57jqa5y"]
+[gd_scene load_steps=27 format=3 uid="uid://ce4f4u57jqa5y"]
 
 [ext_resource type="Script" uid="uid://dg2x286sjjtgg" path="res://src/scenes/level/level.gd" id="1_oi3di"]
 [ext_resource type="Texture2D" uid="uid://4cr4m0os7enb" path="res://assets/background_grid.png" id="2_f2txt"]
-[ext_resource type="PackedScene" uid="uid://dyl2x58uhkund" path="res://src/ui_components/result_signal/result_signal.tscn" id="3_0b4ue"]
-[ext_resource type="PackedScene" uid="uid://cry4dg0ccj8om" path="res://src/ui_components/source_signal/source_signal.tscn" id="3_oi3di"]
+[ext_resource type="PackedScene" uid="uid://dyl2x58uhkund" path="res://src/ui_components/graphs/result_signal/result_signal.tscn" id="3_0b4ue"]
+[ext_resource type="PackedScene" uid="uid://cry4dg0ccj8om" path="res://src/ui_components/graphs/source_signal/source_signal.tscn" id="3_oi3di"]
 [ext_resource type="PackedScene" uid="uid://cdhfqv7vb6awq" path="res://src/ui_components/convertor/convertor.tscn" id="4_8b0r0"]
+[ext_resource type="PackedScene" uid="uid://dkjgd46q8b2lf" path="res://src/ui_components/buttons/hint_button/hint_button.tscn" id="6_cn78f"]
 [ext_resource type="PackedScene" uid="uid://dlbl30nxgy6cy" path="res://src/ui_components/buttons/confirm_button/confirm_button.tscn" id="8_2orkt"]
-[ext_resource type="Texture2D" uid="uid://dwmo33oflb0lt" path="res://assets/ui/buttons/help_btn.png" id="9_2orkt"]
 [ext_resource type="FontFile" uid="uid://c7tmixruws4h5" path="res://assets/fonr.ttf" id="9_8cye3"]
-[ext_resource type="Texture2D" uid="uid://dq2pgwpw1575p" path="res://assets/ui/buttons/help_btn_pressed.png" id="10_aicyk"]
-[ext_resource type="Texture2D" uid="uid://b7n7rubydx6s4" path="res://assets/ui/buttons/help_btn_hover.png" id="11_8b0r0"]
-[ext_resource type="Script" uid="uid://bastk8hao8k8i" path="res://src/ui_components/buttons/hint_button/hint_button.gd" id="12_5pxul"]
 [ext_resource type="PackedScene" uid="uid://dklkx4uxh7nxj" path="res://src/ui_components/attempts/attempts.tscn" id="12_8b0r0"]
 [ext_resource type="PackedScene" uid="uid://dy8c3o1ybfrwy" path="res://src/util/crt.tscn" id="13_8b0r0"]
 [ext_resource type="PackedScene" uid="uid://b3dq0c83hkw8j" path="res://src/ui_components/results/win_panel/win_panel.tscn" id="13_h6smj"]
@@ -25,58 +22,6 @@ colors = PackedColorArray(0.9490196, 0, 0.9490196, 0.77254903, 0, 0.6784314, 0.9
 [sub_resource type="Gradient" id="Gradient_4c15r"]
 offsets = PackedFloat32Array(0.45081967, 1)
 colors = PackedColorArray(1, 0.5686275, 0.9882353, 1, 0.5137255, 0.8039216, 1, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aicyk"]
-texture = ExtResource("9_2orkt")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8b0r0"]
-texture = ExtResource("10_aicyk")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h6smj"]
-texture = ExtResource("11_8b0r0")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6smj"]
-bg_color = Color(0.16078432, 0.16078432, 0.16078432, 0.64705884)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h6smj"]
-
-[sub_resource type="Animation" id="Animation_1ri5t"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_dhlin"]
-resource_name = "pulse"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jap5b"]
-_data = {
-&"RESET": SubResource("Animation_1ri5t"),
-&"pulse": SubResource("Animation_dhlin")
-}
 
 [sub_resource type="Shader" id="Shader_v5j5c"]
 code = "shader_type canvas_item;
@@ -289,27 +234,11 @@ offset_right = 1098.0
 offset_bottom = 1048.0
 theme_override_font_sizes/font_size = 60
 
-[node name="HintButton" type="Button" parent="Main"]
-offset_left = 64.0
+[node name="HintButton" parent="Main" instance=ExtResource("6_cn78f")]
+offset_left = 304.0
 offset_top = 976.0
-offset_right = 256.0
+offset_right = 510.0
 offset_bottom = 1040.0
-pivot_offset = Vector2(64, 20)
-focus_mode = 0
-theme_override_fonts/font = ExtResource("9_8cye3")
-theme_override_font_sizes/font_size = 38
-theme_override_styles/normal = SubResource("StyleBoxTexture_aicyk")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8b0r0")
-theme_override_styles/hover = SubResource("StyleBoxTexture_h6smj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_h6smj")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_h6smj")
-text = "Get hint"
-script = ExtResource("12_5pxul")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Main/HintButton"]
-libraries = {
-&"": SubResource("AnimationLibrary_jap5b")
-}
 
 [node name="Attempts" parent="Main" instance=ExtResource("12_8b0r0")]
 offset_left = -699.0
@@ -402,5 +331,3 @@ dialog_text = "Abandon current run?"
 [node name="AwesomePanel" parent="Menu" instance=ExtResource("17_4c15r")]
 
 [node name="CRT" parent="." instance=ExtResource("13_8b0r0")]
-
-[connection signal="button_down" from="Main/HintButton" to="." method="_on_hint_button_button_down"]

@@ -14,6 +14,10 @@ config/name="gameoff2025"
 run/main_scene="uid://crvwdmp05ujb8"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
+[audio]
+
+buses/default_bus_layout="res://src/data/audio_bus_layout.tres"
+
 [autoload]
 
 Game="*res://src/global/game.gd"
@@ -25,3 +29,7 @@ SceneManager="*res://src/global/scene_manager/scene_manager.tscn"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+
+[gui]
+
+theme/custom_font="uid://c7tmixruws4h5"

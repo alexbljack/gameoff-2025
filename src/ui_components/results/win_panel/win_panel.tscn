@@ -1,33 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b3dq0c83hkw8j"]
+[gd_scene load_steps=6 format=3 uid="uid://b3dq0c83hkw8j"]
 
 [ext_resource type="Script" uid="uid://bhapiw3ke4o0o" path="res://src/ui_components/results/win_panel/win_panel.gd" id="1_0iaqg"]
 [ext_resource type="FontFile" uid="uid://c7tmixruws4h5" path="res://assets/fonr.ttf" id="1_v0bjp"]
 [ext_resource type="Texture2D" uid="uid://d20tmb8a15767" path="res://assets/ui/atttempts/hp.png" id="2_0iaqg"]
+[ext_resource type="PackedScene" uid="uid://crv1251y3hjrv" path="res://src/ui_components/buttons/next_level_button/next_level_button.tscn" id="3_4ncor"]
 [ext_resource type="Script" uid="uid://1agcxa80uqew" path="res://src/util/shaker.gd" id="3_5jawd"]
-[ext_resource type="Texture2D" uid="uid://ddceljcpm4y81" path="res://assets/ui/buttons/active_btn.png" id="3_di4t0"]
-[ext_resource type="Texture2D" uid="uid://bjmy5f4rxl8fv" path="res://assets/ui/buttons/button_default.png" id="4_v7hqq"]
-[ext_resource type="Texture2D" uid="uid://b7k6sktmveh83" path="res://assets/ui/buttons/hover_btn.png" id="5_onymw"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_koqw2"]
-texture = ExtResource("3_di4t0")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2hlh7"]
-texture = ExtResource("4_v7hqq")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ncv0i"]
-texture = ExtResource("5_onymw")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
 
 [node name="WinPanel" type="Control"]
 layout_mode = 3
@@ -42,9 +19,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -288.0
-offset_right = 288.0
-offset_bottom = 184.0
+offset_left = -290.0
+offset_right = 286.0
+offset_bottom = 192.0
 grow_horizontal = 2
 pivot_offset = Vector2(288, 88)
 theme_override_colors/font_color = Color(0.11372549, 0.9098039, 0.44313726, 1)
@@ -56,19 +33,12 @@ text = "SUCCESS!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NextLevelButton" type="Button" parent="."]
+[node name="NextLevelButton" parent="." instance=ExtResource("3_4ncor")]
 layout_mode = 0
 offset_left = 128.0
-offset_top = 668.0
+offset_top = 672.0
 offset_right = 480.0
-offset_bottom = 764.0
-focus_mode = 0
-theme_override_fonts/font = ExtResource("1_v0bjp")
-theme_override_font_sizes/font_size = 44
-theme_override_styles/normal = SubResource("StyleBoxTexture_koqw2")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_2hlh7")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ncv0i")
-text = "Next level"
+offset_bottom = 768.0
 
 [node name="AttemptsScore" type="Control" parent="."]
 anchors_preset = 0
@@ -236,11 +206,11 @@ metadata/_custom_type_script = "uid://1agcxa80uqew"
 
 [node name="TotalScore" type="Control" parent="."]
 anchors_preset = 0
-offset_top = 534.0
+offset_top = 544.0
 offset_right = 576.0
-offset_bottom = 598.0
+offset_bottom = 608.0
 
-[node name="Label" type="Label" parent="TotalScore"]
+[node name="TotalLabel" type="Label" parent="TotalScore"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -279,6 +249,3 @@ target = NodePath("..")
 amount = 7.0
 duration = 0.5
 metadata/_custom_type_script = "uid://1agcxa80uqew"
-
-[connection signal="mouse_entered" from="NextLevelButton" to="." method="_on_next_level_button_mouse_entered"]
-[connection signal="pressed" from="NextLevelButton" to="." method="_on_next_level_button_pressed"]

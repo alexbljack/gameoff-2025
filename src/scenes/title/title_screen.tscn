@@ -1,74 +1,17 @@
-[gd_scene load_steps=31 format=3 uid="uid://crvwdmp05ujb8"]
+[gd_scene load_steps=23 format=3 uid="uid://crvwdmp05ujb8"]
 
 [ext_resource type="Texture2D" uid="uid://4cr4m0os7enb" path="res://assets/background_grid.png" id="1_mx57q"]
 [ext_resource type="Script" uid="uid://d0u8hvnevdeub" path="res://src/scenes/title/title_screen.gd" id="1_u3a1t"]
-[ext_resource type="PackedScene" uid="uid://ce4f4u57jqa5y" path="res://src/scenes/level/level.tscn" id="2_u3a1t"]
 [ext_resource type="FontFile" uid="uid://c7tmixruws4h5" path="res://assets/fonr.ttf" id="3_vayli"]
-[ext_resource type="Texture2D" uid="uid://ddceljcpm4y81" path="res://assets/ui/buttons/active_btn.png" id="4_vedi7"]
-[ext_resource type="Texture2D" uid="uid://bjmy5f4rxl8fv" path="res://assets/ui/buttons/button_default.png" id="5_odwn3"]
-[ext_resource type="Texture2D" uid="uid://b7k6sktmveh83" path="res://assets/ui/buttons/hover_btn.png" id="6_tlpw0"]
-[ext_resource type="PackedScene" uid="uid://cn6r3p51pbj3i" path="res://src/ui_components/signal_graph/signal_graph.tscn" id="7_fxnhw"]
+[ext_resource type="PackedScene" uid="uid://dfv7k2kywgipf" path="res://src/ui_components/buttons/start_game_button/start_button.tscn" id="4_yl7fo"]
+[ext_resource type="PackedScene" uid="uid://cn6r3p51pbj3i" path="res://src/ui_components/graphs/signal_graph/signal_graph.tscn" id="7_fxnhw"]
 [ext_resource type="PackedScene" uid="uid://dy8c3o1ybfrwy" path="res://src/util/crt.tscn" id="7_odwn3"]
 [ext_resource type="Script" uid="uid://bpo78me2lvaxo" path="res://src/waves/graph_config.gd" id="8_skmr6"]
-[ext_resource type="Resource" uid="uid://3as6t0bx3i0y" path="res://src/data/success_graph.tres" id="9_a8ovd"]
+[ext_resource type="Resource" uid="uid://3as6t0bx3i0y" path="res://src/data/graph_styles/success_graph.tres" id="9_a8ovd"]
 [ext_resource type="Script" uid="uid://c4anwulrallu3" path="res://src/waves/oscillator.gd" id="10_vltpm"]
-[ext_resource type="Resource" uid="uid://cosuhir85x3cc" path="res://src/data/result_graph.tres" id="11_a8ovd"]
-[ext_resource type="Resource" uid="uid://31prlxvjne65" path="res://src/data/error_graph.tres" id="12_vltpm"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ron6"]
-texture = ExtResource("4_vedi7")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_036v4"]
-texture = ExtResource("5_odwn3")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fxnhw"]
-texture = ExtResource("6_tlpw0")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-
-[sub_resource type="Animation" id="Animation_1ri5t"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_dhlin"]
-resource_name = "pulse"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jap5b"]
-_data = {
-&"RESET": SubResource("Animation_1ri5t"),
-&"pulse": SubResource("Animation_dhlin")
-}
+[ext_resource type="Resource" uid="uid://cosuhir85x3cc" path="res://src/data/graph_styles/result_graph.tres" id="11_a8ovd"]
+[ext_resource type="PackedScene" uid="uid://ddb711w8t5ymd" path="res://src/ui_components/results/best_result/best_result.tscn" id="12_4y87l"]
+[ext_resource type="Resource" uid="uid://31prlxvjne65" path="res://src/data/graph_styles/error_graph.tres" id="12_vltpm"]
 
 [sub_resource type="Shader" id="Shader_vltpm"]
 code = "shader_type canvas_item;
@@ -152,9 +95,9 @@ oscillators = Array[ExtResource("10_vltpm")]([SubResource("Resource_os3mc")])
 line = ExtResource("12_vltpm")
 metadata/_custom_type_script = "uid://bpo78me2lvaxo"
 
-[node name="TitleScreen" type="Node2D"]
+[node name="TitleScreen" type="Node2D" node_paths=PackedStringArray("start_button")]
 script = ExtResource("1_u3a1t")
-level_scene = ExtResource("2_u3a1t")
+start_button = NodePath("CanvasLayer/StartButton")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -180,34 +123,13 @@ texture = ExtResource("1_mx57q")
 stretch_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="StartButton" type="Button" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+[node name="StartButton" parent="CanvasLayer" instance=ExtResource("4_yl7fo")]
 offset_left = -192.0
 offset_top = 196.0
 offset_right = 192.0
-offset_bottom = 322.52692
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(190, 62)
-focus_mode = 0
-theme_override_fonts/font = ExtResource("3_vayli")
-theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = SubResource("StyleBoxTexture_6ron6")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_036v4")
-theme_override_styles/hover = SubResource("StyleBoxTexture_fxnhw")
-text = "New Game"
+offset_bottom = 322.52686
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/StartButton"]
-libraries = {
-&"": SubResource("AnimationLibrary_jap5b")
-}
-autoplay = "pulse"
-
-[node name="LevelLabel" type="Label" parent="CanvasLayer"]
+[node name="SyncLabel" type="Label" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_616sk")
 offset_left = 112.0
 offset_top = 28.0
@@ -221,7 +143,7 @@ theme_override_font_sizes/font_size = 350
 text = "Sync"
 vertical_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+[node name="WaveLabel" type="Label" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_gc8o6")
 offset_left = 920.0
 offset_top = 24.0
@@ -245,63 +167,6 @@ max_amplitude = 1.5
 graphs = Array[ExtResource("8_skmr6")]([SubResource("Resource_bgd1n"), SubResource("Resource_um11b"), SubResource("Resource_l76ay")])
 draw_grid = false
 
-[node name="BestResultLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -308.0
-offset_top = -172.0
-offset_right = 312.0
-offset_bottom = -75.0
-grow_horizontal = 2
-grow_vertical = 0
-pivot_offset = Vector2(288, 88)
-theme_override_colors/font_color = Color(0.11372549, 0.9098039, 0.44313726, 1)
-theme_override_colors/font_outline_color = Color(0.057600003, 0.48, 0.22656003, 0.76862746)
-theme_override_constants/outline_size = 17
-theme_override_fonts/font = ExtResource("3_vayli")
-theme_override_font_sizes/font_size = 73
-text = "Best score 1000"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BestLevelLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -308.0
-offset_top = -92.0
-offset_right = 312.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 0
-pivot_offset = Vector2(288, 88)
-theme_override_colors/font_color = Color(0.14509805, 0.972549, 0.20784314, 1)
-theme_override_colors/font_outline_color = Color(0.09019608, 0.5529412, 0.11764706, 0.68235296)
-theme_override_constants/outline_size = 17
-theme_override_fonts/font = ExtResource("3_vayli")
-theme_override_font_sizes/font_size = 56
-text = "Max level 10"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="RunInfo" type="Label" parent="CanvasLayer"]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 1216.0
-offset_top = 196.0
-offset_right = 1482.0
-offset_bottom = 324.0
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_vayli")
-theme_override_font_sizes/font_size = 40
-text = "Level 10
-Score 100000"
-vertical_alignment = 1
+[node name="BestResult" parent="CanvasLayer" instance=ExtResource("12_4y87l")]
 
 [node name="CRT" parent="." instance=ExtResource("7_odwn3")]

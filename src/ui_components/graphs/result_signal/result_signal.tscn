@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://dyl2x58uhkund"]
 
-[ext_resource type="Script" uid="uid://btgtso5fm0obo" path="res://src/ui_components/result_signal/result_signal.gd" id="1_gjgu6"]
-[ext_resource type="Resource" uid="uid://cosuhir85x3cc" path="res://src/data/result_graph.tres" id="2_qr21g"]
+[ext_resource type="Script" uid="uid://btgtso5fm0obo" path="res://src/ui_components/graphs/result_signal/result_signal.gd" id="1_gjgu6"]
+[ext_resource type="Resource" uid="uid://cosuhir85x3cc" path="res://src/data/graph_styles/result_graph.tres" id="2_qr21g"]
 [ext_resource type="Script" uid="uid://1agcxa80uqew" path="res://src/util/shaker.gd" id="3_34o2n"]
-[ext_resource type="Resource" uid="uid://nwc7nnjwlooy" path="res://src/data/source_graph.tres" id="3_nerhf"]
-[ext_resource type="Resource" uid="uid://31prlxvjne65" path="res://src/data/error_graph.tres" id="4_qshkk"]
-[ext_resource type="Resource" uid="uid://3as6t0bx3i0y" path="res://src/data/success_graph.tres" id="5_put5h"]
+[ext_resource type="Resource" uid="uid://nwc7nnjwlooy" path="res://src/data/graph_styles/source_graph.tres" id="3_nerhf"]
+[ext_resource type="Resource" uid="uid://31prlxvjne65" path="res://src/data/graph_styles/error_graph.tres" id="4_qshkk"]
+[ext_resource type="Resource" uid="uid://3as6t0bx3i0y" path="res://src/data/graph_styles/success_graph.tres" id="5_put5h"]
 
 [node name="ResultSignal" type="ColorRect"]
 custom_minimum_size = Vector2(672, 672)

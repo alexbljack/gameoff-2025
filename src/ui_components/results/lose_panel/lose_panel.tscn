@@ -1,32 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://o2rht176mmgv"]
+[gd_scene load_steps=5 format=3 uid="uid://o2rht176mmgv"]
 
 [ext_resource type="FontFile" uid="uid://c7tmixruws4h5" path="res://assets/fonr.ttf" id="1_6vm6q"]
 [ext_resource type="Script" uid="uid://bjbop6b3iypuj" path="res://src/ui_components/results/lose_panel/lose_panel.gd" id="1_q8xh0"]
 [ext_resource type="Script" uid="uid://1agcxa80uqew" path="res://src/util/shaker.gd" id="2_4jw04"]
-[ext_resource type="Texture2D" uid="uid://ddceljcpm4y81" path="res://assets/ui/buttons/active_btn.png" id="3_q8xh0"]
-[ext_resource type="Texture2D" uid="uid://bjmy5f4rxl8fv" path="res://assets/ui/buttons/button_default.png" id="4_gadmd"]
-[ext_resource type="Texture2D" uid="uid://b7k6sktmveh83" path="res://assets/ui/buttons/hover_btn.png" id="5_qaie5"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_003k4"]
-texture = ExtResource("3_q8xh0")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d43n2"]
-texture = ExtResource("4_gadmd")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tqkm8"]
-texture = ExtResource("5_qaie5")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
+[ext_resource type="PackedScene" uid="uid://bwocx3wqa6ndb" path="res://src/ui_components/buttons/return_button/return_button.tscn" id="3_w7hn3"]
 
 [node name="LosePanel" type="Control"]
 layout_mode = 3
@@ -51,6 +28,20 @@ theme_override_font_sizes/font_size = 128
 text = "Game over"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ReturnButton" parent="." instance=ExtResource("3_w7hn3")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -184.0
+offset_right = 160.0
+offset_bottom = -88.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="Level" type="Control" parent="."]
 layout_mode = 1
@@ -190,20 +181,3 @@ target = NodePath("..")
 amount = 7.0
 duration = 0.5
 metadata/_custom_type_script = "uid://1agcxa80uqew"
-
-[node name="ReturnButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 256.0
-offset_top = 480.0
-offset_right = 576.0
-offset_bottom = 576.0
-focus_mode = 0
-theme_override_fonts/font = ExtResource("1_6vm6q")
-theme_override_font_sizes/font_size = 44
-theme_override_styles/normal = SubResource("StyleBoxTexture_003k4")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_d43n2")
-theme_override_styles/hover = SubResource("StyleBoxTexture_tqkm8")
-text = "Return"
-
-[connection signal="mouse_entered" from="ReturnButton" to="." method="_on_return_button_mouse_entered"]
-[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

@@ -36,19 +36,17 @@ var result_signals: Array
 
 
 func _ready() -> void:
-	for button in [exit_button, confirm_button, hint_button]:
-		button.mouse_entered.connect(_on_button_mouse_entered.bind(button))
-
 	exit_dialog.confirmed.connect(_on_exit_confirmed)
 	exit_dialog.canceled.connect(_on_exit_canceled)
+	
 	exit_button.pressed.connect(_show_exit_dialog)
 	confirm_button.pressed.connect(_on_confirm_button_pressed)
 	
 	hint_used = Game.player_data.hint_used
-	hint_button.set_state(hint_used) 
+	hint_button.set_state(hint_used)  
 
 	attempts = Game.player_data.attempts_left
-	attempts_container.init(attempts, Const.MAX_ATTEMPTS)
+	attempts_container.init(attempts, Game.MAX_ATTEMPTS)
 
 	_load_data()
 
@@ -60,7 +58,7 @@ func _ready() -> void:
 	if not Game.player_data.current_sources: 
 		_generate_signals()
 	else:
-		for i in range(Const.MAX_SOURCES):
+		for i in range(Game.MAX_SOURCES):
 			var graph: SourceSignal = source_signals.get_child(i)
 			if i < Game.player_data.current_sources.size():
 				var osc: Array[Oscillator]
@@ -81,7 +79,7 @@ func _process(_delta: float):
 
 func _generate_signals():
 	var signals = []
-	for j in range(Const.MAX_SOURCES):
+	for j in range(Game.MAX_SOURCES):
 		var oscs: Array[Oscillator] = []
 		while oscs.size() < source_signals_count:
 			var _osc := Oscillator.rand_osc()
@@ -98,7 +96,7 @@ func _generate_signals():
 
 
 func _load_data():
-	level_label.text = "Level %s / %s" % [Game.player_data.current_level, Const.MAX_LEVEL]
+	level_label.text = "Level %s / %s" % [Game.player_data.current_level, Game.MAX_LEVEL]
 	score_label.text = "Score %s" % Game.player_data.current_score
 
 
@@ -155,15 +153,14 @@ func _on_confirm_button_pressed() -> void:
 		AudioManager.sfx_valid_sync.play()
 		result_graph.show_success_graph(signals)
 		await _complete_level()
-		Game.player_data.update_best_level()
+		Game.update_best_level()
 		if not hint_used:
-			Game.player_data.current_mult += Const.NO_HINT_MULT_INCREMENT
+			Game.player_data.current_mult += Game.NO_HINT_MULT_INCREMENT
 		var earned = win_panel.calculate(attempts, hint_used, Game.player_data.current_mult)
 		Game.player_data.current_score += earned
-		var is_completed = Game.player_data.current_level == Const.MAX_LEVEL
+		var is_completed = Game.player_data.current_level == Game.MAX_LEVEL
 		if not is_completed:
-			Game.player_data.current_level += 1
-			Game.player_data.start_new_level()
+			Game.player_data.move_to_next_level()
 			await win_panel.show_stats(false)
 		else:
 			Game.player_data.run_in_progress = false
@@ -201,8 +198,8 @@ func _complete_level() -> void:
 
 
 func _game_over():
-	var is_best_result = Game.player_data.update_best_score()
-	Game.player_data.update_best_level()
+	var is_best_result = Game.update_best_score()
+	Game.update_best_level()
 	Game.player_data.run_in_progress = false
 	await _complete_level()
 	AudioManager.sfx_game_over.play()
@@ -277,8 +274,3 @@ func _on_exit_confirmed():
 
 func _on_exit_canceled():
 	menu.hide()
-
-
-func _on_button_mouse_entered(sender) -> void:
-	if not sender.disabled:
-		AudioManager.sfx_button_hover.play()

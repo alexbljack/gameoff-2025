@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlbl30nxgy6cy"]
+[gd_scene load_steps=6 format=3 uid="uid://dkjgd46q8b2lf"]
 
-[ext_resource type="Theme" uid="uid://bwb0mllwiqmux" path="res://src/data/ui_main.theme" id="1_7b8u3"]
-[ext_resource type="Script" uid="uid://chwxeixbr10eh" path="res://src/ui_components/buttons/confirm_button/confirm_button.gd" id="5_1ri5t"]
+[ext_resource type="Theme" uid="uid://bwb0mllwiqmux" path="res://src/data/ui_main.theme" id="1_sb7qa"]
+[ext_resource type="Script" uid="uid://bastk8hao8k8i" path="res://src/ui_components/buttons/hint_button/hint_button.gd" id="5_xxfp6"]
 
 [sub_resource type="Animation" id="Animation_1ri5t"]
 length = 0.001
@@ -41,16 +41,15 @@ _data = {
 &"pulse": SubResource("Animation_dhlin")
 }
 
-[node name="ConfirmButton" type="Button"]
-offset_right = 288.0
-offset_bottom = 88.0
-pivot_offset = Vector2(88, 44)
+[node name="HintButton" type="Button"]
+offset_right = 192.0
+offset_bottom = 64.0
+pivot_offset = Vector2(64, 20)
 focus_mode = 0
-theme = ExtResource("1_7b8u3")
-theme_type_variation = &"Main_Button"
-disabled = true
-text = "Sync"
-script = ExtResource("5_1ri5t")
+theme = ExtResource("1_sb7qa")
+theme_type_variation = &"Secondary_Button"
+text = "Get hint"
+script = ExtResource("5_xxfp6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

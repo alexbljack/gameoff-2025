@@ -1,6 +1,11 @@
 extends Node
 
-var player_data = PlayerData.new()
+const MAX_SOURCES = 9
+const MAX_ATTEMPTS = 3
+const MAX_LEVEL := 20
+const SCORE_PER_ATTEMPT := 100
+const SCORE_FOR_HINT := 200
+const NO_HINT_MULT_INCREMENT := 0.2
 
 const LEVELS_DATA = {
 	1: [1, 2],  # source oscillators, result signals
@@ -24,3 +29,29 @@ const LEVELS_DATA = {
 	19: [2, 3],
 	20: [2, 3],
 }
+
+var player_data = PlayerData.new()
+
+
+func try_load_savefile() -> bool:
+	var result
+	if FileAccess.file_exists(PlayerData.SAVE_FILE_PATH):
+		result = ResourceLoader.load(PlayerData.SAVE_FILE_PATH)
+		if result:
+			Game.player_data = result
+			Game.player_data.save_to_file = true
+	return result != null
+
+
+func update_best_score() -> bool:
+	if player_data.current_score > player_data.best_score:
+		player_data.best_score = player_data.current_score
+		return true
+	return false
+
+
+func update_best_level() -> bool:
+	if player_data.current_level > player_data.best_level:
+		player_data.best_level = player_data.current_level
+		return true
+	return false
