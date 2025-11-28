@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://crv1251y3hjrv"]
+[gd_scene load_steps=3 format=3 uid="uid://crv1251y3hjrv"]
 
 [ext_resource type="Theme" uid="uid://bwb0mllwiqmux" path="res://src/data/ui_main.theme" id="1_hrj3v"]
+[ext_resource type="Script" uid="uid://nqv3n643m1gw" path="res://src/ui_components/buttons/next_level_button/next_level_button.gd" id="2_0ad8c"]
 
 [node name="NextLevelButton" type="Button"]
 offset_right = 352.0
@@ -9,3 +10,4 @@ focus_mode = 0
 theme = ExtResource("1_hrj3v")
 theme_type_variation = &"Main_Button"
 text = "Next level"
+script = ExtResource("2_0ad8c")

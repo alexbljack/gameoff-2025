@@ -3,6 +3,7 @@ class_name Convertor extends ColorRect
 @export var slot_scene: PackedScene
 
 var slots: Array = []
+var result_osc_count: int
 var unmatched_combos: Array = []
 
 var has_free_slot: bool:
@@ -16,7 +17,8 @@ func _ready() -> void:
 	Utils.delete_all_children(slots_container)
 
 
-func init(slots_count: int) -> void:
+func init(slots_count: int, results_count: int) -> void:
+	result_osc_count = results_count
 	for i in slots_count:
 		var slot = slot_scene.instantiate()
 		slots_container.add_child(slot)
@@ -46,9 +48,9 @@ func save_unmatched():
 	unmatched_combos.append(get_oscillators())
 
 
-func is_already_unmatched(results_count) -> bool:
+func is_already_unmatched() -> bool:
 	var oscs = get_oscillators()
-	if oscs.size() < results_count:
+	if oscs.size() < result_osc_count:
 		return false
 
 	for combo in unmatched_combos:

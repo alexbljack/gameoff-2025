@@ -37,12 +37,3 @@ func show_stats(level: int, score: int, is_best_result: bool):
 		shaker.shake()
 		await shaker.finished
 	return_button.show()
-
-
-func _on_return_button_pressed() -> void:
-	AudioManager.sfx_confirm.play()
-	SceneManager.load_title()
-
-
-func _on_return_button_mouse_entered() -> void:
-	AudioManager.sfx_button_hover.play()

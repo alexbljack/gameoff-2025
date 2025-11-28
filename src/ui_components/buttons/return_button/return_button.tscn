@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwocx3wqa6ndb"]
+[gd_scene load_steps=3 format=3 uid="uid://bwocx3wqa6ndb"]
 
 [ext_resource type="Theme" uid="uid://bwb0mllwiqmux" path="res://src/data/ui_main.theme" id="1_bxg4b"]
+[ext_resource type="Script" uid="uid://wcf6087qej2l" path="res://src/ui_components/buttons/return_button/return_button.gd" id="2_37tvw"]
 
 [node name="ReturnButton" type="Button"]
 offset_right = 320.0
@@ -9,3 +10,4 @@ focus_mode = 0
 theme = ExtResource("1_bxg4b")
 theme_type_variation = &"Main_Button"
 text = "Return"
+script = ExtResource("2_37tvw")

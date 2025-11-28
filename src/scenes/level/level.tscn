@@ -306,7 +306,7 @@ offset_bottom = 248.23993
 [node name="Menu" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="Menu"]
+[node name="Background" type="ColorRect" parent="Menu"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

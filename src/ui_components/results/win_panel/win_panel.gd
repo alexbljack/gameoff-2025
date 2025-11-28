@@ -62,13 +62,3 @@ func calculate(attempts: int, hint_used: bool, hint_mult: float):
 	total_earned = snapped(int(total_earned * hint_mult), 10)
 	total_score_label.text = "+%s" % total_earned
 	return total_earned
-
-
-
-func _on_next_level_button_pressed() -> void:
-	AudioManager.sfx_confirm.play()
-	SceneManager.load_level()
-
-
-func _on_next_level_button_mouse_entered() -> void:
-	AudioManager.sfx_button_hover.play()

@@ -16,7 +16,7 @@ var alpha: float
 var input_enabled := true
 
 
-func init(_oscillators: Array[Oscillator]):
+func init(_oscillators: Array[Oscillator]) -> void:
 	oscillators = _oscillators
 	var graph = GraphConfig.new()
 	graph.line = line

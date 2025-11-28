@@ -1,6 +1,11 @@
-extends Button
+extends BasicButton
 
 @onready var animator: AnimationPlayer = $AnimationPlayer
+
+
+func _ready() -> void:
+	super()
+	set_state(Game.player_data.hint_used)
 
 
 func set_state(hint_used: bool):

@@ -17,7 +17,7 @@ func init(attempts: int, max_attempts: int) -> void:
 
 
 
-func spend_attempt():
+func spend_attempt() -> void:
 	for child in get_children():
 		if not child.spent:
 			child.spend()

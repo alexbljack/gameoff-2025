@@ -6,6 +6,7 @@ const MAX_LEVEL := 20
 const SCORE_PER_ATTEMPT := 100
 const SCORE_FOR_HINT := 200
 const NO_HINT_MULT_INCREMENT := 0.2
+const REMOVED_ON_HINT := 3
 
 const LEVELS_DATA = {
 	1: [1, 2],  # source oscillators, result signals
