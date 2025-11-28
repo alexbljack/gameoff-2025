@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LineConfig" load_steps=2 format=3 uid="uid://cosuhir85x3cc"]
+
+[ext_resource type="Script" uid="uid://u8vbajg48be5" path="res://src/waves/line_config.gd" id="1_1ot20"]
+
+[resource]
+script = ExtResource("1_1ot20")
+points_number = 1000
+glow_width = 15.0
+glow_color = Color(0, 0.63529414, 0.92156863, 0.6745098)
+metadata/_custom_type_script = "uid://u8vbajg48be5"

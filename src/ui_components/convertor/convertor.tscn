@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdhfqv7vb6awq"]
+
+[ext_resource type="Script" uid="uid://7wo52qi3onw0" path="res://src/ui_components/convertor/convertor.gd" id="1_qtdju"]
+[ext_resource type="PackedScene" uid="uid://h7emc2k5ok36" path="res://src/ui_components/convertor/slot.tscn" id="1_xiy65"]
+
+[node name="Convertor" type="ColorRect"]
+z_index = 1
+offset_right = 256.0
+offset_bottom = 672.0
+color = Color(1, 1, 1, 0)
+script = ExtResource("1_qtdju")
+slot_scene = ExtResource("1_xiy65")
+
+[node name="Slots" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Slot_1" parent="Slots" instance=ExtResource("1_xiy65")]
+layout_mode = 2
+
+[node name="Slot_2" parent="Slots" instance=ExtResource("1_xiy65")]
+layout_mode = 2
+
+[node name="Slot_3" parent="Slots" instance=ExtResource("1_xiy65")]
+layout_mode = 2
+
+[node name="Border" type="Line2D" parent="."]
+position = Vector2(0, 0.024691582)
+scale = Vector2(1, 1.0061729)
+points = PackedVector2Array(-6, -5.9877295, -6, 673.8159, 262, 673.8159, 262, -5.9877295)
+closed = true
+width = 12.0
+default_color = Color(0.95, 0, 0.95, 0.77254903)
+joint_mode = 2
+antialiased = true
+
+[node name="Border2" type="Line2D" parent="."]
+position = Vector2(0, 0.024691582)
+scale = Vector2(1, 1.0061729)
+points = PackedVector2Array(-6, -5.9877295, -6, 673.8159, 262, 673.8159, 262, -5.9877295)
+closed = true
+width = 4.0
+default_color = Color(1, 0.5686275, 0.9882353, 1)
+joint_mode = 2
+antialiased = true

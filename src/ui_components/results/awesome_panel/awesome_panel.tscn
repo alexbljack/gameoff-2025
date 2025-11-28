@@ -1,0 +1,152 @@
+[gd_scene load_steps=10 format=3 uid="uid://yng32sbdlnv7"]
+
+[ext_resource type="Script" uid="uid://cqdombm5ke2ue" path="res://src/ui_components/results/awesome_panel/awesome_panel.gd" id="1_ewxnl"]
+[ext_resource type="FontFile" uid="uid://c7tmixruws4h5" path="res://assets/fonr.ttf" id="1_kr3jd"]
+[ext_resource type="Texture2D" uid="uid://ddceljcpm4y81" path="res://assets/ui/buttons/active_btn.png" id="2_ewxnl"]
+[ext_resource type="Texture2D" uid="uid://bjmy5f4rxl8fv" path="res://assets/ui/buttons/button_default.png" id="3_bp2gc"]
+[ext_resource type="Script" uid="uid://1agcxa80uqew" path="res://src/util/shaker.gd" id="3_ud35d"]
+[ext_resource type="Texture2D" uid="uid://b7k6sktmveh83" path="res://assets/ui/buttons/hover_btn.png" id="4_ud35d"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y3bce"]
+texture = ExtResource("2_ewxnl")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u3yai"]
+texture = ExtResource("3_bp2gc")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fj6e6"]
+texture = ExtResource("4_ud35d")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[node name="AwesomePanel" type="Control"]
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -276.0
+offset_bottom = 340.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ewxnl")
+
+[node name="PraiseLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -288.0
+offset_right = 288.0
+offset_bottom = 184.0
+grow_horizontal = 2
+pivot_offset = Vector2(288, 88)
+theme_override_colors/font_color = Color(0.11372549, 0.9098039, 0.44313726, 1)
+theme_override_colors/font_outline_color = Color(0.057600003, 0.48, 0.22656003, 0.76862746)
+theme_override_constants/outline_size = 17
+theme_override_fonts/font = ExtResource("1_kr3jd")
+theme_override_font_sizes/font_size = 156
+text = "YOU ARE AWESOME!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shaker" type="Node" parent="PraiseLabel" node_paths=PackedStringArray("target")]
+script = ExtResource("3_ud35d")
+target = NodePath("..")
+amount = 10.0
+duration = 0.8
+metadata/_custom_type_script = "uid://1agcxa80uqew"
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -92.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.5686275, 0.9882353, 1)
+theme_override_colors/font_outline_color = Color(0.8784314, 0, 0.88235295, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_kr3jd")
+theme_override_font_sizes/font_size = 100
+text = "Total Score 10000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shaker" type="Node" parent="ScoreLabel" node_paths=PackedStringArray("target")]
+script = ExtResource("3_ud35d")
+target = NodePath("..")
+amount = 10.0
+duration = 0.8
+metadata/_custom_type_script = "uid://1agcxa80uqew"
+
+[node name="ThanksLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -244.0
+offset_right = 323.0
+offset_bottom = -142.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.92156863, 1, 0.5019608, 1)
+theme_override_colors/font_outline_color = Color(0.7490196, 0.78039217, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_kr3jd")
+theme_override_font_sizes/font_size = 56
+text = "Thanks for playing!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shaker" type="Node" parent="ThanksLabel" node_paths=PackedStringArray("target")]
+script = ExtResource("3_ud35d")
+target = NodePath("..")
+amount = 10.0
+duration = 0.8
+metadata/_custom_type_script = "uid://1agcxa80uqew"
+
+[node name="ReturnButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -104.0
+offset_right = 256.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("1_kr3jd")
+theme_override_font_sizes/font_size = 44
+theme_override_styles/normal = SubResource("StyleBoxTexture_y3bce")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_u3yai")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fj6e6")
+text = "Return to title"
+
+[node name="Shaker" type="Node" parent="ReturnButton" node_paths=PackedStringArray("target")]
+script = ExtResource("3_ud35d")
+target = NodePath("..")
+amount = 10.0
+duration = 0.8
+metadata/_custom_type_script = "uid://1agcxa80uqew"
+
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

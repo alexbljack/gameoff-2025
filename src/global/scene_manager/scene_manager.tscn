@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://h4exipa3hkyr"]
+
+[ext_resource type="Script" uid="uid://bdjbbubnwmgmm" path="res://src/global/scene_manager/scene_manager.gd" id="1_c63eo"]
+[ext_resource type="PackedScene" uid="uid://dj6llc1sf3lus" path="res://src/global/scene_manager/fader/fader.tscn" id="2_4pjrx"]
+[ext_resource type="PackedScene" uid="uid://ce4f4u57jqa5y" path="res://src/scenes/level/level.tscn" id="3_efdfn"]
+[ext_resource type="PackedScene" uid="uid://crvwdmp05ujb8" path="res://src/scenes/title/title_screen.tscn" id="4_vnu0f"]
+
+[node name="SceneManager" type="Node"]
+script = ExtResource("1_c63eo")
+fader = ExtResource("2_4pjrx")
+level_scene = ExtResource("3_efdfn")
+title_scene = ExtResource("4_vnu0f")

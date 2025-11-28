@@ -16,9 +16,9 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 
 [autoload]
 
-Game="*res://src/game.gd"
-SceneManager="*res://src/util/scene_manager.gd"
-AudioManager="*res://src/AudioManager.tscn"
+Game="*res://src/global/game.gd"
+AudioManager="*res://src/global/audio_manager/AudioManager.tscn"
+SceneManager="*res://src/global/scene_manager/scene_manager.tscn"
 
 [display]
 
