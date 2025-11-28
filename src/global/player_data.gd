@@ -1,7 +1,7 @@
 class_name PlayerData extends Resource
 
 const SAVES_DIR = "user://saves/"
-const SAVE_FILE = "syncsave.res"
+const SAVE_FILE = "syncwave_save.res"
 const SAVE_FILE_PATH = SAVES_DIR + SAVE_FILE
 
 @export var best_score: int = 0:
