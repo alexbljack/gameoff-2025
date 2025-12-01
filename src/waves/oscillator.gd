@@ -46,10 +46,10 @@ static func rand_osc() -> Oscillator:
 static func equal(osc_1: Oscillator, osc_2: Oscillator) -> bool:
 	if osc_1.wave_type != osc_1.wave_type:
 		return false
-	if osc_1.amplitide != osc_2.amplitide:
+	if not is_equal_approx(osc_1.amplitide, osc_2.amplitide):
 		return false
-	if osc_1.freq != osc_2.freq:
+	if not is_equal_approx(osc_1.freq, osc_2.freq):
 		return false
-	if osc_1.phase_offset != osc_2.phase_offset:
+	if not is_equal_approx(osc_1.phase_offset, osc_2.phase_offset):
 		return false
 	return true
